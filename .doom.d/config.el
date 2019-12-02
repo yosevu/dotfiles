@@ -18,9 +18,9 @@
            (file "ideas.org")
            "* 💡 %?" :prepend t :kill-buffer t))))
 
-(setq org-directory (expand-file-name "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
+(setq org-directory (expand-file-name "~/Google Drive/org/")
       org-ellipsis " ▼ "
-      org-journal-dir "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/journal"
+      org-journal-dir "~/Google Drive/org/journal/"
       org-journal-file-type 'yearly
       org-log-done 'time
       projectile-project-search-path '("~/Documents/projects/")
