@@ -1,9 +1,9 @@
 # dotfiles
 
 - Install [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh)
-- Install [Emacs](https://github.com/d12frosted/homebrew-emacs-plus)
+- Install [Emacs](https://github.com/railwaycat/homebrew-emacsmacport)
+  - emacs-mac to enable composition-mode for [FiraCode](https://github.com/tonsky/FiraCode/wiki/Emacs-instructions#using-composition-mode-in-emacs-mac-port)
 - Install [doom emacs](https://github.com/hlissner/doom-emacs)
-
 
 ## Init
 
