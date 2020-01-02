@@ -24,5 +24,5 @@
       org-journal-dir "~/Google Drive/org/journal/"
       org-journal-file-type 'yearly
       org-log-done 'time
-      projectile-project-search-path '("~/Documents/projects/")
+      projectile-project-search-path '("~/Documents/repos/")
       visual-line-mode t)
