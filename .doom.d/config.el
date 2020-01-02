@@ -3,11 +3,12 @@
 ;; Place your private configuration here
 ;;
 
+;; Font and Theme
 (load-theme 'doom-nord-light t) ; Load theme
+(doom-themes-org-config) ; Correct and improve org-mode's native fonts
+(mac-auto-operator-composition-mode t)
 
 ;;(load! "lisp/alfred-org-capture")
-
-(doom-themes-org-config) ; Correct and improve org-mode's native fonts
 
 (after! org
   (setq org-capture-templates
