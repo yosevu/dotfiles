@@ -67,6 +67,7 @@ plugins=(
   git-prompt
   vi-mode
   zsh-autosuggestions
+  zsh-better-npm-completion
 )
 
 source $ZSH/oh-my-zsh.sh
