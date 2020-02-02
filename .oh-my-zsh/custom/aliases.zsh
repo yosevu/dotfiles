@@ -1,5 +1,5 @@
 # dotfiles repository
-alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias git.='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 alias g='cd ~/Google\ Drive/'
 alias r='cd ~/Documents/repos'
