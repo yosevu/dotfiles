@@ -21,8 +21,8 @@
        :ui
        deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
-       doom-dashboard    ; a nifty splash screen for Emacs
-       doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;doom-dashboard    ; a nifty splash screen for Emacs
+       ;doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
@@ -62,10 +62,10 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       eshell            ; a consistent, cross-platform shell (WIP)
+       ;;eshell            ; a consistent, cross-platform shell (WIP)
        ;;shell             ; a terminal REPL for Emacs
        ;;term              ; terminals in Emacs
-       ;;vterm             ; another terminals in Emacs
+       vterm             ; another terminals in Emacs
 
        :tools
        ;;ansible
@@ -76,8 +76,8 @@
        ;;ein               ; tame Jupyter notebooks with emacs
        eval              ; run code, run (also, repls)
        flycheck          ; tasing you for every semicolon you forget
-       ;;flyspell          ; tasing you for misspelling mispelling
-       ;;gist              ; interacting with github gists
+       flyspell          ; tasing you for misspelling mispelling
+       gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
        ;;lsp
@@ -127,8 +127,8 @@
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +dragndrop       ; drag & drop files/images into org buffers
-        +ipython         ; ipython/jupyter support for babel
-        +pandoc          ; export-with-pandoc support
+        ;;+ipython         ; ipython/jupyter support for babel
+        ;;+pandoc          ; export-with-pandoc support
         +present
         +roam)        ; using org-mode for presentations
        ;;perl              ; write code no one else can comprehend

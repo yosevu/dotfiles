@@ -4,7 +4,8 @@
 ;;
 
 ;; Font and Theme
-(load-theme 'doom-nord-light t) ; Load theme
+;; (load-theme 'doom-nord-light t) ; Load theme
+(load-theme 'doom-nord t) ; Load theme
 (doom-themes-org-config) ; Correct and improve org-mode's native fonts
 (mac-auto-operator-composition-mode t)
 
@@ -28,7 +29,12 @@
       ;; org-log-done 'time
       ;; projectile-project-search-path '("~/Documents/repos/")
       ;; visual-line-mode t)
-
+(use-package tide
+  :ensure t
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)
+         (before-save . tide-format-before-save)))
 (use-package org-journal
   :after org
   :bind
@@ -96,7 +102,6 @@
   (add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor))
 
 
-
 ;; (defun my/org-roam--backlinks-list-with-content (file)
 ;;   (with-temp-buffer
 ;;     (if-let* ((backlinks (org-roam--get-backlinks file))
@@ -126,15 +131,19 @@
 ;;   (add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor)
 
 ;; Publish org files and assets to public HTML
+
+;; (setq org/head-extra "<link rel='stylesheet' type='text/css' href='css/main.css'/>")
+
 (setq org-publish-project-alist
       '(("org-notes"
          :base-directory "~/Google Drive/org/"
          :base-extension "org"
-:publishing-directory "~/Google Drive/org/public/"
-        :recursive t
-        :publishing-function org-html-publish-to-html
-        :headline-levels 4             ; Just the default for this project.
-        :auto-preamble t
+         :publishing-directory "~/Google Drive/org/public/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :html-head-extra "<link rel='stylesheet' type='text/css' href='css/main.css'/>"
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t
  )
 
 ("org-static"
