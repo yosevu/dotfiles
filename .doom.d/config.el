@@ -22,34 +22,71 @@
 ;;            (file "ideas.org")
 ;;            "* 💡 %?" :prepend t :kill-buffer t))))
 
-;; (setq org-directory (expand-file-name "~/Google Drive/org/")
+;; Set initial frame size and position
+(add-to-list 'initial-frame-alist '(fullscreen . fullheight))
+(add-to-list 'initial-frame-alist '(width . 0.5))
+(add-to-list 'initial-frame-alist '(left . 0))
+
+(setq
+      ;; org-directory (expand-file-name "~/Google Drive/org/")
       ;; org-ellipsis " ▼ "
-      ;org-journal-dir "~/Google Drive/org/journal/"
-      ;org-journal-file-type 'yearly
+      ;; org-journal-dir "~/Google Drive/org/journal/"
+      ;; org-journal-file-type 'yearly
       ;; org-log-done 'time
-      ;; projectile-project-search-path '("~/Documents/repos/")
-      ;; visual-line-mode t)
+      projectile-project-search-path '("~/Documents/projects/personal/" "~/Documents/projects/work/")
+      visual-line-mode t)
+
+;; tide config
 (use-package tide
   :ensure t
   :after (typescript-mode company flycheck)
   :hook ((typescript-mode . tide-setup)
          (typescript-mode . tide-hl-identifier-mode)
          (before-save . tide-format-before-save)))
+
+;; org-journal config
 (use-package org-journal
   :after org
-  :bind
-  ("C-c n j" . org-journal-new-entry)
+  :init
+  (map! :leader
+        (:prefix ("j" . "journal") ;; org-journal bindings
+         :desc "Create new journal entry" "j" #'org-journal-new-entry
+         :desc "Open previous entry" "p" #'org-journal-open-previous-entry
+         :desc "Open next entry" "n" #'org-journal-open-next-entry
+         :desc "Search journal" "s" #'org-journal-search-forever))
   :custom
-  (org-journal-date-prefix "#+TITLE: ")
+  (org-journal-dir "~/Google Drive/org/journal")
   (org-journal-file-format "%Y-%m-%d.org")
-  (org-journal-dir "~/Google Drive/org/roam/journal")
-  (org-journal-date-format "%A, %d %B %Y"))
+  (org-journal-file-header "#+TITLE: %Y-%m-%d\n#+ROAM_TAGS: journal\n\n[[file:journal.org][Journal]]\n\n")
+  (org-journal-date-format "%Y-%m-%d, %A"))
+
+(setq org-agenda-files (directory-files-recursively "~/Google Drive/org/" "\.org$"))
+;; (def-package! org-super-agenda
+;;   :init
+
+;;   :config)
 
 (require 'ox-publish)
 (require 'htmlize)
 (require 'org-roam)
 
 (use-package! org-roam
+  :init
+  (map! :leader
+        :prefix "n"
+        :desc "org-roam"                        "r" #'org-roam
+        :desc "org-roam-insert"                 "i" #'org-roam-insert
+        :desc "org-roam-switch-to-buffer"       "b" #'org-roam-switch-to-buffer
+        :desc "org-roam-find-file"              "f" #'org-roam-find-file
+        :desc "org-roam-show-graph"             "g" #'org-roam-show-graph
+        :desc "org-roam-insert"                 "i" #'org-roam-insert
+        :desc "org-roam-capture"                "c" #'org-roam-capture)
+        ;; (:prefix ("R" . "roam")
+        ;;  (:prefix  ("d" . "by date")
+        ;;   :desc "org-roam-dailies-date"           "d" #'org-roam-dailies-date
+        ;;   :desc "org-roam-dailies-today"          "t" #'org-roam-dailies-today
+        ;;   :desc "org-roam-dailies-tomorrow"       "m" #'org-roam-dailies-tomorrow
+        ;;   :desc "org-roam-dailies-yesterday"      "y" #'org-roam-dailies-yesterday))
   :custom
   (org-roam-directory "~/Google Drive/org/")
   (org-roam-completion-system 'ivy)
@@ -59,13 +96,6 @@
       :file-name "${slug}"
       :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS:\n\n* ${title}\n"
       :unnarrowed t)))
-  :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n b" . org-roam-switch-to-buffer)
-               ("C-c n g" . org-roam-graph))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert)))
   :config
   (defun org-roam--title-to-slug (title)
     "Convert TITLE to a filename-suitable slug. Uses hyphens rather than underscores."
@@ -83,6 +113,7 @@
              (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
         (s-downcase slug))))
 
+;; org-roam org-export hook to add backlinks
   (defun my/org-roam--backlinks-list (file)
     (if (org-roam--org-roam-file-p file)
         (--reduce-from
@@ -97,11 +128,11 @@
       (unless (string= links "")
         (save-excursion
           (goto-char (point-max))
-          (insert (concat "\n* Backlinks\n") links)))))
+          (insert (concat "\n* Backlinks\n") links))))))
 
-  (add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor))
+  (add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor)
 
-
+;; org-roam org-export hook to add backlinks with content
 ;; (defun my/org-roam--backlinks-list-with-content (file)
 ;;   (with-temp-buffer
 ;;     (if-let* ((backlinks (org-roam--get-backlinks file))
