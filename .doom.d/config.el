@@ -7,7 +7,7 @@
 ;; (load-theme 'doom-nord-light t) ; Load theme
 (load-theme 'doom-nord t) ; Load theme
 (doom-themes-org-config) ; Correct and improve org-mode's native fonts
-(mac-auto-operator-composition-mode t)
+;; (mac-auto-operator-composition-mode t) ; Ligature support for fonts like Fira Code. Works with emacs-mac.
 
 ;;(load! "lisp/alfred-org-capture")
 
@@ -27,12 +27,17 @@
 (add-to-list 'initial-frame-alist '(width . 0.5))
 (add-to-list 'initial-frame-alist '(left . 0))
 
+(require 'ob-clojure-literate)
+
+(setq ob-clojure-literate-auto-jackin-p t)
+
 (setq
       ;; org-directory (expand-file-name "~/Google Drive/org/")
       ;; org-ellipsis " ▼ "
       ;; org-journal-dir "~/Google Drive/org/journal/"
       ;; org-journal-file-type 'yearly
       ;; org-log-done 'time
+      ;; org-babel-clojure-backend 'cider
       projectile-project-search-path '("~/Documents/projects/personal/" "~/Documents/projects/work/")
       visual-line-mode t)
 
@@ -60,7 +65,7 @@
   (org-journal-file-header "#+TITLE: %Y-%m-%d\n#+ROAM_TAGS: journal\n\n[[file:journal.org][Journal]]\n\n")
   (org-journal-date-format "%Y-%m-%d, %A"))
 
-(setq org-agenda-files (directory-files-recursively "~/Google Drive/org/" "\.org$"))
+(setq org-agenda-files (directory-files-recursively "~/Google Drive/org/" "\\.org$"))
 ;; (def-package! org-super-agenda
 ;;   :init
 
@@ -96,6 +101,7 @@
       :file-name "${slug}"
       :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS:\n\n* ${title}\n"
       :unnarrowed t)))
+  (org-roam-link-title-format "%s")
   :config
   (defun org-roam--title-to-slug (title)
     "Convert TITLE to a filename-suitable slug. Uses hyphens rather than underscores."

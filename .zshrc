@@ -119,3 +119,4 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 source ~/.iterm2_shell_integration.zsh
 
+export PATH="/usr/local/sbin:$PATH"
