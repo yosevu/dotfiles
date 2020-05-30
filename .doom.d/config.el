@@ -27,6 +27,13 @@
 (add-to-list 'initial-frame-alist '(width . 0.5))
 (add-to-list 'initial-frame-alist '(left . 0))
 
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+
+(require 'org)
+(require 'ob-clojure)
+(require 'cider)
+
 (setq
       ;; org-directory (expand-file-name "~/Google Drive/org/")
       org-ellipsis " ▼ "
@@ -56,16 +63,13 @@
   :custom
   (org-journal-dir "~/Google Drive/org/journal")
   (org-journal-file-format "%Y-%m-%d.org")
-  (org-journal-file-header "#+TITLE: %Y-%m-%d\n#+ROAM_TAGS: journal\n\n[[file:journal.org][Journal]]\n\n")
-  (org-journal-date-format "%Y-%m-%d, %A"))
+  (org-journal-file-header "#+TITLE: %Y-%m-%d\n#+ROAM_TAGS: journal\n\n[[file:journal.org][Journal]]\n\nWeek %V, %Y\n\n")
+  (org-journal-date-format "%Y-%m-%d (%A) ")
+  (org-journal-time-prefix "")
+  (org-journal-time-format ""))
 
 (setq org-agenda-files (directory-files-recursively "~/Google Drive/org/" "\\.org$"))
-;; (def-package! org-super-agenda
-;;   :init
 
-;;   :config)
-
-(require 'ox-publish)
 (require 'htmlize)
 (require 'org-roam)
 
@@ -165,6 +169,8 @@
 
 ;; (setq org/head-extra "<link rel='stylesheet' type='text/css' href='css/main.css'/>")
 
+;; org-publish config
+(require 'ox-publish)
 (setq org-publish-project-alist
       '(("org-notes"
          :base-directory "~/Google Drive/org/"
@@ -173,21 +179,15 @@
          :recursive t
          :publishing-function org-html-publish-to-html
          :html-head-extra "<link rel='stylesheet' type='text/css' href='css/main.css'/>"
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t
- )
-
-("org-static"
- :base-directory "~/Google Drive/org/"
- :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
- :publishing-directory "~/Google Drive/org/public/"
- :recursive t
- :publishing-function org-publish-attachment
- )
-
-("org" :components ("org-notes" "org-static"))
-
-))
+         :headline-levels 4
+         :auto-preamble t)
+        ("org-static"
+         :base-directory "~/Google Drive/org/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/Google Drive/org/public/"
+         :recursive t
+         :publishing-function org-publish-attachment)
+        ("org" :components ("org-notes" "org-static"))))
 
 (use-package deft
   :after org
