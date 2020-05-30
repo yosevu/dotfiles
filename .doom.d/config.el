@@ -27,17 +27,11 @@
 (add-to-list 'initial-frame-alist '(width . 0.5))
 (add-to-list 'initial-frame-alist '(left . 0))
 
-(require 'ob-clojure-literate)
-
-(setq ob-clojure-literate-auto-jackin-p t)
-
 (setq
       ;; org-directory (expand-file-name "~/Google Drive/org/")
-      ;; org-ellipsis " ▼ "
-      ;; org-journal-dir "~/Google Drive/org/journal/"
-      ;; org-journal-file-type 'yearly
-      ;; org-log-done 'time
-      ;; org-babel-clojure-backend 'cider
+      org-ellipsis " ▼ "
+      org-log-done 'time ; Insert a timestamp after the headline when a task is marked done.
+      org-babel-clojure-backend 'cider
       projectile-project-search-path '("~/Documents/projects/personal/" "~/Documents/projects/work/")
       visual-line-mode t)
 
