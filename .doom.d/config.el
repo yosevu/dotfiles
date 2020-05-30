@@ -188,7 +188,7 @@
       :publishing-directory "~/Google Drive/org/public/"
       :recursive t
       :publishing-function org-html-publish-to-html
-      :html-head-extra "<link rel='stylesheet' type='text/css' href='css/main.css'/>"
+      :html-head-extra "<link href='https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/preflight.min.css' rel='stylesheet'>\n<link rel='stylesheet' type='text/css' href='css/main.css'/>"
       :headline-levels 4
       :auto-preamble t)
         ("org-static"
