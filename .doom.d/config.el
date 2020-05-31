@@ -12,16 +12,6 @@
 ;;(load! "lisp/alfred-org-capture")
 
 ;; Org-mode
-
-;; (after! org
-;;   (setq org-capture-templates
-;;         '(("n" "Inbox" entry
-;;            (file "inbox.org")
-;;            "* TODO %?" :prepend t :kill-buffer t)
-;;           ("d" "Idea" entry
-;;            (file "ideas.org")
-;;            "* 💡 %?" :prepend t :kill-buffer t))))
-
 ;; Set initial frame size and position
 (add-to-list 'initial-frame-alist '(fullscreen . fullheight))
 (add-to-list 'initial-frame-alist '(width . 0.5))
@@ -35,12 +25,11 @@
 (require 'cider)
 
 (setq
-      ;; org-directory (expand-file-name "~/Google Drive/org/")
-      org-ellipsis " ▼ "
-      org-log-done 'time ; Insert a timestamp after the headline when a task is marked done.
-      org-babel-clojure-backend 'cider
-      projectile-project-search-path '("~/Documents/projects/personal/" "~/Documents/projects/work/")
-      visual-line-mode t)
+ org-ellipsis " ▼ "
+ org-log-done 'time ; Insert a timestamp after the headline when a task is marked done.
+ org-babel-clojure-backend 'cider
+ projectile-project-search-path '("~/Documents/projects/personal/" "~/Documents/projects/work/")
+ visual-line-mode t)
 
 ;; tide config
 (use-package tide
@@ -61,7 +50,7 @@
          :desc "Open next entry" "n" #'org-journal-open-next-entry
          :desc "Search journal" "s" #'org-journal-search-forever))
   :custom
-  (org-journal-dir "~/Google Drive/org/journal")
+  (org-journal-dir "~/Google Drive/org/private/journal")
   (org-journal-file-format "%Y-%m-%d.org")
   ;(org-journal-file-type 'weekly)
   (org-journal-file-header "#+TITLE: %Y-%m-%d\n#+ROAM_TAGS: journal\n\n[[file:journal.org][Journal]]\n\nWeek %V, %Y")
@@ -95,10 +84,15 @@
   (org-roam-directory "~/Google Drive/org/")
   (org-roam-completion-system 'ivy)
   (org-roam-capture-templates
-   '(("d" "default" plain (function org-roam--capture-get-point)
+   '(("d" "private (default)" plain (function org-roam--capture-get-point)
       "%?"
       :file-name "private/${slug}"
-      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"private\"\"\n\n* ${title}\n"
+      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"private\"\n\n* ${title}\n"
+      :unnarrowed t)
+     ("f" "draft" plain (function org-roam--capture-get-point)
+      "%?"
+      :file-name "${slug}"
+      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"drafts\"\n\n* ${title}\n"
       :unnarrowed t)
      ("p" "public" plain (function org-roam--capture-get-point)
       "%?"
@@ -188,7 +182,9 @@
       :publishing-directory "~/Google Drive/org/public/"
       :recursive t
       :publishing-function org-html-publish-to-html
-      :html-head-extra "<link href='https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/preflight.min.css' rel='stylesheet'>\n<link rel='stylesheet' type='text/css' href='css/main.css'/>"
+      :section-numbers nil
+      :html-head-extra "<link rel='stylesheet' href='https://unpkg.com/sakura.css/css/sakura.css' type='text/css'/>"
+      ;:html-head-extra "<link href='https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/preflight.min.css' rel='stylesheet'>\n<link rel='stylesheet' type='text/css' href='css/main.css'/>"
       :headline-levels 4
       :auto-preamble t)
         ("org-static"
