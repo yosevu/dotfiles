@@ -4,8 +4,9 @@
 ;;
 
 ;; Font and Theme
-;; (load-theme 'doom-nord-light t) ; Load theme
-(load-theme 'doom-nord t) ; Load theme
+(load-theme 'doom-nord-light t) ; Load theme
+;; (load-theme 'doom-nord t) ; Load theme
+;; (load-theme 'doom-palenight t) ; Load theme
 (doom-themes-org-config) ; Correct and improve org-mode's native fonts
 ;; (mac-auto-operator-composition-mode t) ; Ligature support for fonts like Fira Code. Works with emacs-mac.
 
@@ -52,8 +53,8 @@
   :custom
   (org-journal-dir "~/Google Drive/org/private/journal")
   (org-journal-file-format "%Y-%m-%d.org")
-  ;(org-journal-file-type 'weekly)
-  (org-journal-file-header "#+TITLE: %Y-%m-%d\n#+ROAM_TAGS: journal\n\n[[file:journal.org][Journal]]\n\nWeek %V, %Y")
+  (org-journal-file-type 'weekly)
+  (org-journal-file-header "#+TITLE: Week %V, %Y \n#+ROAM_TAGS: journal \n\n [[file:journal.org][Journal]] \n\n")
   (org-journal-date-format "%Y-%m-%d (%A)")
   (org-journal-time-prefix "")
   (org-journal-time-format ""))
@@ -183,8 +184,7 @@
       :recursive t
       :publishing-function org-html-publish-to-html
       :section-numbers nil
-      :html-head-extra "<link rel='stylesheet' href='https://unpkg.com/sakura.css/css/sakura.css' type='text/css'/>"
-      ;:html-head-extra "<link href='https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/preflight.min.css' rel='stylesheet'>\n<link rel='stylesheet' type='text/css' href='css/main.css'/>"
+      :html-head-extra "<link rel='stylesheet' href='css/main.css' type='text/css'/>"
       :headline-levels 4
       :auto-preamble t)
         ("org-static"
