@@ -4,9 +4,11 @@
 ;;
 
 ;; Font and Theme
-(load-theme 'doom-nord-light t) ; Load theme
-;; (load-theme 'doom-nord t) ; Load theme
-;; (load-theme 'doom-palenight t) ; Load theme
+;; (load-theme 'doom-nord-light t)
+;; (load-theme 'doom-nord t)
+(load-theme 'doom-solarized-light t)
+;; (load-theme 'doom-palenight t)
+
 (doom-themes-org-config) ; Correct and improve org-mode's native fonts
 ;; (mac-auto-operator-composition-mode t) ; Ligature support for fonts like Fira Code. Works with emacs-mac.
 
@@ -85,20 +87,25 @@
   (org-roam-directory "~/Google Drive/org/")
   (org-roam-completion-system 'ivy)
   (org-roam-capture-templates
-   '(("d" "private (default)" plain (function org-roam--capture-get-point)
+   '(("d" "personal (default)" plain (function org-roam--capture-get-point)
       "%?"
       :file-name "private/${slug}"
-      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"private\"\n\n* ${title}\n"
+      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"private\" \"personal\"\n\n"
+      :unnarrowed t)
+     ("w" "work" plain (function org-roam--capture-get-point)
+      "%?"
+      :file-name "private/${slug}"
+      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"private\" \"work\"\n\n"
       :unnarrowed t)
      ("f" "draft" plain (function org-roam--capture-get-point)
       "%?"
       :file-name "${slug}"
-      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"drafts\"\n\n* ${title}\n"
+      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"drafts\"\n\n"
       :unnarrowed t)
      ("p" "public" plain (function org-roam--capture-get-point)
       "%?"
       :file-name "${slug}"
-      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"public\"\n\n* ${title}\n"
+      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"public\"\n\n"
       :unnarrowed t)))
   (org-roam-link-title-format "%s")
   :config
