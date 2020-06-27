@@ -12,6 +12,32 @@
 (doom-themes-org-config) ; Correct and improve org-mode's native fonts
 ;; (mac-auto-operator-composition-mode t) ; Ligature support for fonts like Fira Code. Works with emacs-mac.
 
+;; Emacs Dashboard
+(use-package dashboard
+  :ensure t
+  :init ; add config
+  (progn
+    (setq dashboard-items '(
+                            ;; (agenda . 5)
+                            (projects . 5)
+                            (recents . 5)
+                            (bookmarks .5)
+                            (registers . 5)
+                            ))
+    (setq dashboard-startup-banner 'official)
+    (setq dashboard-footer-messages '(
+                                      "We like to say that we don't get to choose our parents, that they were given by chance--yet we can truly choose whose children we'd like to be. - Seneca"
+                                      "Man lives on one quarter of what he eats. On the other three quarters live his doctors. - Unknown"
+                                      "If you want everything to be familiar, you will never learn anything new because it can't be significantly different from what you already know - Rich Hickey"
+                                      "The best thing a human being can do is to help another human being know more. - Charlie Munger"
+                                      "In my whole life, I have known no wise people (over a broad subject matter area) who didn't read all the time — none, zero. - Charlie Munger"
+                                      "To be everywhere is to be nowhere. - Seneca"
+                                      "If you don't know where you're going, you might not get there - Yogi Berra"
+                                      "Substitute nuance for novelty - Angela Duckworth"
+                                      "If you want to test your memory, try to remember what you were worrying about one year ago today. - E. Joseph Cossman")))
+  :config
+  (dashboard-setup-startup-hook))
+
 ;;(load! "lisp/alfred-org-capture")
 
 ;; Org-mode
