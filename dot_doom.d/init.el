@@ -129,8 +129,8 @@
         +dragndrop       ; drag & drop files/images into org buffers
         ;;+ipython         ; ipython/jupyter support for babel
         ;;+pandoc          ; export-with-pandoc support
-        +present
-        +roam)        ; using org-mode for presentations
+        +present           ; using org-mode for presentations
+        +roam)
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
