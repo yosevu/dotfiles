@@ -1,0 +1,24 @@
+#+title: dotfiles
+#+author: "Yosevu Kilonzo"
+
+** [[https://github.com/twpayne/chezmoi][chezmoi]]
+
+Manage dotfiles across multple machines, securely.
+
+~dot~ is an alias for ~chezmoi~.
+
+- [[https://github.com/twpayne/chezmoi/blob/master/docs/QUICKSTART.md][Quick Start Guide]]
+- [[https://github.com/twpayne/chezmoi/blob/master/docs/HOWTO.md][How-To Guide]]
+- [[https://github.com/twpayne/chezmoi/blob/master/docs/REFERENCE.md][Reference Manual]]
+
+** Emacs
+*** Versions
+- [[https://github.com/d12frosted/homebrew-emacs-plus][homebrew-emacs-plus]]
+*** Packages
+- [[https://github.com/hlissner/doom-emacs][doom-emacs]]
+- [[https://github.com/org-roam/org-roam][org-roam]]
+- [[https://github.com/akermu/emacs-libvterm][emacs-libvterm]]
+- [[https://github.com/magit/magit][magit]]
+- [[https://github.com/magit/forge][forge]]
+** Zsh
+- [[https://ohmyz.sh/][Oh My Zsh]]
