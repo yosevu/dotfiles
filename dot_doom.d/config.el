@@ -17,13 +17,11 @@
   :ensure t
   :init ; add config
   (progn
-    (setq dashboard-items '(
-                            ;; (agenda . 5)
+    (setq dashboard-items '((agenda . 5)
+                            (bookmarks .5)
                             (projects . 5)
                             (recents . 5)
-                            (bookmarks .5)
-                            (registers . 5)
-                            ))
+                            (registers . 5)))
     (setq dashboard-startup-banner 'official)
     (setq dashboard-footer-messages '(
                                       "We like to say that we don't get to choose our parents, that they were given by chance--yet we can truly choose whose children we'd like to be. - Seneca"
@@ -87,7 +85,39 @@
   (org-journal-time-prefix "")
   (org-journal-time-format ""))
 
-(setq org-agenda-files (directory-files-recursively "~/Google Drive/org/" "\\.org$"))
+;; (setq org-agenda-files (directory-files-recursively "~/Google Drive/org/" "\\.org$"))
+
+(setq
+ web-mode-markup-indent-offset 2
+ web-mode-code-indent-offset 2
+ web-mode-css-indent-offset 2
+ ;; mac-command-modifier 'meta
+ org-agenda-skip-scheduled-if-done t
+ js-indent-level 2
+ json-reformat:indent-width 2
+ prettier-js-args '("--single-quote")
+ dired-dwim-target t ; http://ergoemacs.org/emacs/emacs_dired_tips.html
+ org-ellipsis " ▾ "
+ org-bullets-bullet-list '("·")
+ org-tags-column -80
+ org-agenda-files (ignore-errors (directory-files "~/Google Drive/org/private/tasks/" t "\\.org$" t))
+ org-log-done 'time
+ css-indent-offset 2
+ org-refile-targets (quote ((nil :maxlevel . 1)))
+ org-capture-templates '(("t" "Task" entry
+                          (file "~/Google Drive/org/private/tasks/tasks.org")
+                          "* TODO %?" :prepend t :kill-buffer t))
+ org-super-agenda-groups '((:name "Today"
+                                  :time-grid t
+                                  :scheduled today)
+                           (:name "Due today"
+                                  :deadline today)
+                           (:name "Important"
+                                  :priority "A")
+                           (:name "Overdue"
+                                  :deadline past)
+                           (:name "Due soon"
+                                  :deadline future)))
 
 (require 'htmlize)
 (require 'org-roam)
