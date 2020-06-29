@@ -1,12 +1,21 @@
 ;;; .doom.d/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here
-;;
+; Custom vars
+(setq
+ +org-path "~/Dropbox/org/"
+ ;; +org-publish-path "~/Dropbox/notes.yosevu.com/public/"
+ ;; +org-publish-public-path "~/Dropbox/notes.yosevu.com/public/"
+ +org-capture-inbox-path "~/Dropbox/org/roam/private/inbox.org"
+ +org-capture-tasks-path "~/Dropbox/org/tasks.org"
+ +org-roam-path "~/Dropbox/org/roam/"
+ +org-journal-path "~/Dropbox/org/roam/private/journal/")
+ ;; +projectile-personal-projects-path "~/Documents/projects/personal/"
+ ;; +projectile-work-projects-path "~/Documents/projects/work/"
 
 ;; Font and Theme
 ;; (load-theme 'doom-nord-light t)
-;; (load-theme 'doom-nord t)
-(load-theme 'doom-solarized-light t)
+(load-theme 'doom-nord t)
+;; (load-theme 'doom-solarized-light t)
 ;; (load-theme 'doom-palenight t)
 
 (doom-themes-org-config) ; Correct and improve org-mode's native fonts
@@ -77,15 +86,13 @@
          :desc "Open next entry" "n" #'org-journal-open-next-entry
          :desc "Search journal" "s" #'org-journal-search-forever))
   :custom
-  (org-journal-dir "~/Google Drive/org/private/journal")
+  (org-journal-dir +org-journal-path)
   (org-journal-file-format "%Y-%m-%d.org")
   (org-journal-file-type 'weekly)
-  (org-journal-file-header "#+TITLE: Week %V, %Y \n#+ROAM_TAGS: journal \n\n [[file:journal.org][Journal]] \n\n")
+  (org-journal-file-header "#+title: Week %V, %Y \n#+ROAM_TAGS: journal \n\n [[file:journal.org][Journal]] \n\n")
   (org-journal-date-format "%Y-%m-%d (%A)")
   (org-journal-time-prefix "")
   (org-journal-time-format ""))
-
-;; (setq org-agenda-files (directory-files-recursively "~/Google Drive/org/" "\\.org$"))
 
 (setq
  web-mode-markup-indent-offset 2
@@ -100,12 +107,16 @@
  org-ellipsis " ▾ "
  org-bullets-bullet-list '("·")
  org-tags-column -80
- org-agenda-files (ignore-errors (directory-files "~/Google Drive/org/private/tasks/" t "\\.org$" t))
+ ;; (org-agenda-files (directory-files-recursively "~/Google Drive/org/" "\\.org$"))
+ org-agenda-files (ignore-errors (directory-files +org-path t "\\.org$" t))
  org-log-done 'time
  css-indent-offset 2
- org-refile-targets (quote ((nil :maxlevel . 1)))
- org-capture-templates '(("t" "Task" entry
-                          (file "~/Google Drive/org/private/tasks/tasks.org")
+ ;; org-refile-targets (quote ((nil :maxlevel . 1)))
+ org-capture-templates '(("i" "inbox" entry
+                          (file +org-capture-inbox-path)
+                          "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("t" "task" entry
+                          (file +org-capture-tasks-path)
                           "* TODO %?" :prepend t :kill-buffer t))
  org-super-agenda-groups '((:name "Today"
                                   :time-grid t
@@ -140,33 +151,33 @@
         ;;   :desc "org-roam-dailies-tomorrow"       "m" #'org-roam-dailies-tomorrow
         ;;   :desc "org-roam-dailies-yesterday"      "y" #'org-roam-dailies-yesterday))
   :custom
-  (org-roam-directory "~/Google Drive/org/")
+  (org-roam-directory +org-roam-path)
   (org-roam-completion-system 'ivy)
   (org-roam-capture-templates
    '(("d" "personal (default)" plain (function org-roam--capture-get-point)
       "%?"
       :file-name "private/${slug}"
-      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"private\" \"personal\"\n\n"
+      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n"
       :unnarrowed t)
      ("w" "work" plain (function org-roam--capture-get-point)
       "%?"
       :file-name "private/${slug}"
-      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"private\" \"work\"\n\n"
+      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"work\"\n\n"
       :unnarrowed t)
      ("f" "draft" plain (function org-roam--capture-get-point)
       "%?"
       :file-name "${slug}"
-      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"drafts\"\n\n"
+      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"drafts\"\n\n"
       :unnarrowed t)
      ("p" "public" plain (function org-roam--capture-get-point)
       "%?"
       :file-name "${slug}"
-      :head "#+TITLE: ${title}\n#+CREATED: %<%Y-%m-%d>\n#+ROAM_ALIAS:\n#+ROAM_TAGS: \"public\"\n\n"
+      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"public\"\n\n"
       :unnarrowed t)))
   (org-roam-link-title-format "%s")
   :config
   (defun org-roam--title-to-slug (title)
-    "Convert TITLE to a filename-suitable slug. Uses hyphens rather than underscores."
+    "Convert title to a filename-suitable slug. Uses hyphens rather than underscores."
     (cl-flet* ((nonspacing-mark-p (char)
                                   (eq 'Mn (get-char-code-property char 'general-category)))
                (strip-nonspacing-marks (s)
@@ -186,7 +197,7 @@
       (if (org-roam--org-roam-file-p file)
           (--reduce-from
            (concat acc (format "- [[file:%s][%s]]\n"
-                               (file-relative-name (car it) org-roam-directory)
+                               (file-relative-name (car it) +org-roam-path)
                                (org-roam--get-title-or-slug (car it))))
            "" (org-roam-db-query [:select [from] :from links :where (= to $s1)] file))
         ""))
@@ -240,10 +251,10 @@
       :auto-sitemap t
       :sitemap-filename "index.org"
       :sitemap-title "Index"
-      :base-directory "~/Google Drive/org/"
+      :base-directory "~/Dropbox/org/roam/"
       :base-extension "org"
       :exclude "private"
-      :publishing-directory "~/Google Drive/org/public/"
+      :publishing-directory "~/Dropbox/notes.yosevu.com/public/"
       :recursive t
       :publishing-function org-html-publish-to-html
       :section-numbers nil
@@ -251,9 +262,9 @@
       :headline-levels 4
       :auto-preamble t)
         ("org-static"
-         :base-directory "~/Google Drive/org/"
+         :base-directory "~/Dropbox/notes.yosevu.com/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-         :publishing-directory "~/Google Drive/org/public/"
+         :publishing-directory "~/Dropbox/notes.yosevu.com/public/"
          :recursive t
          :publishing-function org-publish-attachment)
         ("org" :components ("org-notes" "org-static"))))
@@ -266,4 +277,4 @@
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
-  (deft-directory "~/Google Drive/org/"))
+  (deft-directory +org-roam-path))
