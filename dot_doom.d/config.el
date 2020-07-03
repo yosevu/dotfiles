@@ -48,6 +48,9 @@
   :config
   (dashboard-setup-startup-hook))
 
+(use-package forge
+  :after magit)
+
 ;;(load! "lisp/alfred-org-capture")
 
 ;; Org-mode
