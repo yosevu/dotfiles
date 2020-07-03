@@ -12,11 +12,14 @@
  ;; +projectile-personal-projects-path "~/Documents/projects/personal/"
  ;; +projectile-work-projects-path "~/Documents/projects/work/"
 
-;; Font and Theme
-;; (load-theme 'doom-nord-light t)
+;; Font and themes
 (load-theme 'doom-nord t)
-;; (load-theme 'doom-solarized-light t)
+;; (load-theme 'doom-nord-light t)
+;; (load-theme 'doom-opera-light t)
 ;; (load-theme 'doom-palenight t)
+;; (load-theme 'doom-solarized-light t)
+;; (load-theme 'dracula t)
+;; (load-theme 'palenight t)
 
 (doom-themes-org-config) ; Correct and improve org-mode's native fonts
 ;; (mac-auto-operator-composition-mode t) ; Ligature support for fonts like Fira Code. Works with emacs-mac.
