@@ -123,18 +123,22 @@
                           "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("t" "task" entry
                           (file +org-capture-tasks-path)
-                          "* TODO %?" :prepend t :kill-buffer t))
- org-super-agenda-groups '((:name "Today"
-                                  :time-grid t
-                                  :scheduled today)
-                           (:name "Due today"
-                                  :deadline today)
-                           (:name "Important"
-                                  :priority "A")
-                           (:name "Overdue"
-                                  :deadline past)
-                           (:name "Due soon"
-                                  :deadline future)))
+                          "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)))
+ ;; org-super-agenda-groups '((:name "Today"
+ ;;                            :time-grid t
+ ;;                            :scheduled today)
+ ;;                           (:name "Due today"
+ ;;                            :deadline today)
+ ;;                           (:name "Important"
+ ;;                            :priority "A")
+ ;;                           (:name "Overdue"
+ ;;                            :deadline past)
+ ;;                           (:name "Due soon"
+ ;;                            :deadline future)))
+
+;; (let ((org-super-agenda-groups
+       ;; '((:auto-group t))))
+  ;; (org-agenda-list))
 
 (require 'htmlize)
 (require 'org-roam)
