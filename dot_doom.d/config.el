@@ -279,6 +279,15 @@
          :publishing-function org-publish-attachment)
         ("org" :components ("org-notes" "org-static"))))
 
+(after! org
+  (defun yosevu/org-archive-done-tasks ()
+    "Archive all done tasks."
+    (interactive)
+    (org-map-entries 'org-archive-subtree "/DONE" 'file))
+  (require 'find-lisp)
+  (setq org-agenda-files
+        (find-lisp-find-files +org-path "tasks.org$")))
+
 (use-package deft
   :after org
   :bind
