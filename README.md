@@ -11,7 +11,7 @@
 - `git init --bare $HOME/.dotfiles`
 - `echo '.dotfiles' >> .gitignore`
 - `git remote add origin git@github.com:yosevu/dotfiles.git`
-- `alias .git='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'`
+- `alias git.='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'`
 - `git. config --local status.showUntrackedFiles no`
 
 ## Clone
