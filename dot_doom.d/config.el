@@ -72,6 +72,8 @@
 (setq
  org-ellipsis " ▼ "
  org-log-done 'time ; Insert a timestamp after the headline when a task is marked done.
+ org-log-into-drawer t
+ org-treat-insert-todo-heading-as-state-change t
  org-babel-clojure-backend 'cider
  projectile-project-search-path '("~/Documents/projects/personal/" "~/Documents/projects/work/")
  visual-line-mode t)
@@ -98,7 +100,7 @@
   (org-journal-dir +org-journal-path)
   (org-journal-file-format "%Y-%m-%d.org")
   (org-journal-file-type 'weekly)
-  (org-journal-file-header "#+title: Week %V, %Y \n#+ROAM_TAGS: journal \n\n [[file:journal.org][Journal]] \n\n")
+  (org-journal-file-header "#+title: Week %V, %Y \n#+roam_tags: journal \n\n [[file:journal.org][Journal]] \n\n")
   (org-journal-date-format "%Y-%m-%d (%A)")
   (org-journal-time-prefix "")
   (org-journal-time-format ""))
@@ -206,6 +208,7 @@
         ;;   :desc "org-roam-dailies-yesterday"      "y" #'org-roam-dailies-yesterday))
   :custom
   (org-roam-directory +org-roam-path)
+  (org-roam-index-file "index.org")
   (org-roam-completion-system 'ivy)
   (org-roam-capture-templates
    '(("d" "personal (default)" plain (function org-roam--capture-get-point)
