@@ -221,7 +221,12 @@
       :file-name "private/${slug}"
       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"work\"\n\n"
       :unnarrowed t)
-     ("f" "draft" plain (function org-roam--capture-get-point)
+     ("f" "flash cards" plain (function org-roam--capture-get-point)
+      "%?"
+      :file-name "${slug}"
+      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \" bkflash cards\"\n\n"
+      :unnarrowed t)
+     ("t" "draft" plain (function org-roam--capture-get-point)
       "%?"
       :file-name "${slug}"
       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"drafts\"\n\n"
@@ -334,6 +339,22 @@
   (require 'find-lisp)
   (setq org-agenda-files
         (find-lisp-find-files +org-path "tasks.org$")))
+
+(use-package hydra)
+(use-package org-fc
+  :load-path "~/Dropbox/org-fc"
+  :custom (org-fc-directories '("~/Dropbox/org/"))
+           (org-fc-review-history-file "~/Dropbox/org-fc.tsv")
+  :config
+  (require 'org-fc-hydra)
+  (require 'org-fc-keymap-hint))
+
+(use-package org-download
+  :after org
+  :bind
+  (:map org-mode-map
+        (("s-Y" . org-download-screenshot)
+         ("s-y" . org-download-yank))))
 
 (use-package deft
   :after org
