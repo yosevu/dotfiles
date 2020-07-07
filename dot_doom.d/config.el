@@ -7,6 +7,7 @@
  ;; +org-publish-public-path "~/Dropbox/notes.yosevu.com/public/"
  +org-capture-inbox-path "~/Dropbox/org/roam/private/inbox.org"
  +org-capture-tasks-path "~/Dropbox/org/tasks.org"
+ +org-capture-habits-path "~/Dropbox/org/habits.org"
  +org-roam-path "~/Dropbox/org/roam/"
  +org-journal-path "~/Dropbox/org/roam/private/journal/")
  ;; +projectile-personal-projects-path "~/Documents/projects/personal/"
@@ -66,6 +67,8 @@
 (require 'ob-clojure)
 (require 'cider)
 
+(add-to-list 'org-modules 'org-habit t)
+
 (setq
  org-ellipsis " ▼ "
  org-log-done 'time ; Insert a timestamp after the headline when a task is marked done.
@@ -113,8 +116,7 @@
  org-ellipsis " ▾ "
  org-bullets-bullet-list '("·")
  org-tags-column -80
- ;; (org-agenda-files (directory-files-recursively "~/Google Drive/org/" "\\.org$"))
- org-agenda-files (ignore-errors (directory-files +org-path t "\\.org$" t))
+ org-agenda-files (ignore-errors (directory-files +org-path t "tasks.org" t))
  org-log-done 'time
  css-indent-offset 2
  ;; org-refile-targets (quote ((nil :maxlevel . 1)))
@@ -123,22 +125,64 @@
                           "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("t" "task" entry
                           (file +org-capture-tasks-path)
+                          "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("h" "habit" entry
+                          (file +org-capture-tasks-path)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)))
- ;; org-super-agenda-groups '((:name "Today"
- ;;                            :time-grid t
- ;;                            :scheduled today)
- ;;                           (:name "Due today"
- ;;                            :deadline today)
- ;;                           (:name "Important"
- ;;                            :priority "A")
- ;;                           (:name "Overdue"
- ;;                            :deadline past)
- ;;                           (:name "Due soon"
- ;;                            :deadline future)))
 
-;; (let ((org-super-agenda-groups
-       ;; '((:auto-group t))))
-  ;; (org-agenda-list))
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "TO READ" "TO WATCH")
+      ;; '((sequence "TODO(t)" "DONE(d)")))
+        (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))
+
+(use-package org-super-agenda
+  :ensure t
+  :config (org-super-agenda-mode))
+
+(setq org-super-agenda-groups
+       '(;; Each group has an implicit boolean OR operator between its selectors.
+         (:name "Habits"
+          :tag "pesonal"
+          :habit t)
+         (:name "Today"  ; Optionally specify section name
+          :time-grid t  ; Items that appear on the time grid
+          :date today
+          :order 1)
+         (:name "Due Today"
+          :deadline today
+          :order 2)
+         (:name "Next"
+          :todo "NEXT"
+          :order 3)
+         (:name "Important"
+          :priority "A"
+          :order 4)
+         (:name "Soon"
+          :scheduled future
+          :order 5)
+         (:name "Overdue"
+          :deadline past
+          :order 6)
+         (:name "Meetings"
+          :and (:todo "MEET" :scheduled future)
+          :order 7)
+         ;; Groups supply their own section names when none are given
+         (:todo "WAITING" :order 8)  ; Set order of this section
+         (:todo ("SOMEDAY" "TO READ" "CHECK" "TO WATCH" "WATCHING")
+                ;; Show this group at the end of the agenda (since it has the
+                ;; highest number). If you specified this group last, items
+                ;; with these todo keywords that e.g. have priority A would be
+                ;; displayed in that group instead, because items are grouped
+                ;; out in the order the groups are listed.
+                :order 9)
+         (:priority<= "B"
+                      ;; Show this section after "Today" and "Important", because
+                      ;; their order is unspecified, defaulting to 0. Sections
+                      ;; are displayed lowest-number-first.
+                      :order 1)
+         ;; After the last group, the agenda will display items that didn't
+         ;; match any of these groups, with the default order position of 99
+         ))
 
 (require 'htmlize)
 (require 'org-roam)
