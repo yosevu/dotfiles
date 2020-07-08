@@ -5,11 +5,12 @@
  +org-path "~/Dropbox/org/"
  ;; +org-publish-path "~/Dropbox/notes.yosevu.com/public/"
  ;; +org-publish-public-path "~/Dropbox/notes.yosevu.com/public/"
- +org-capture-inbox-path "~/Dropbox/org/roam/private/inbox.org"
- +org-capture-tasks-path "~/Dropbox/org/tasks.org"
- +org-capture-habits-path "~/Dropbox/org/habits.org"
  +org-roam-path "~/Dropbox/org/roam/"
- +org-journal-path "~/Dropbox/org/roam/private/journal/")
+ +org-journal-path "~/Dropbox/org/roam/private/journal/"
+ +org-capture-tasks-path "~/Dropbox/org/tasks/"
+ +org-capture-tasks-file "~/Dropbox/org/tasks/tasks.org"
+ +org-capture-habits-file "~/Dropbox/org/tasks/habits.org"
+ +org-capture-inbox-file "~/Dropbox/org/roam/private/inbox.org")
  ;; +projectile-personal-projects-path "~/Documents/projects/personal/"
  ;; +projectile-work-projects-path "~/Documents/projects/work/"
 
@@ -110,7 +111,6 @@
  web-mode-code-indent-offset 2
  web-mode-css-indent-offset 2
  ;; mac-command-modifier 'meta
- org-agenda-skip-scheduled-if-done t
  js-indent-level 2
  json-reformat:indent-width 2
  prettier-js-args '("--single-quote")
@@ -118,18 +118,17 @@
  org-ellipsis " ▾ "
  org-bullets-bullet-list '("·")
  org-tags-column -80
- org-agenda-files (ignore-errors (directory-files +org-path t "tasks.org" t))
  org-log-done 'time
  css-indent-offset 2
  ;; org-refile-targets (quote ((nil :maxlevel . 1)))
  org-capture-templates '(("i" "inbox" entry
-                          (file +org-capture-inbox-path)
+                          (file +org-capture-inbox-file)
                           "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("t" "task" entry
-                          (file +org-capture-tasks-path)
+                          (file +org-capture-tasks-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("h" "habit" entry
-                          (file +org-capture-tasks-path)
+                          (file +org-capture-habits-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)))
 
 (setq org-todo-keywords
@@ -337,8 +336,9 @@
     (interactive)
     (org-map-entries 'org-archive-subtree "/DONE" 'file))
   (require 'find-lisp)
-  (setq org-agenda-files
-        (find-lisp-find-files +org-path "tasks.org$")))
+  (setq
+   org-agenda-files (directory-files +org-capture-tasks-path t "\\.org$" t))
+   org-agenda-skip-scheduled-if-done t)
 
 (use-package hydra)
 (use-package org-fc
