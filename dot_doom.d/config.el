@@ -131,9 +131,9 @@
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)))
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "TO READ" "TO WATCH")
+      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
       ;; '((sequence "TODO(t)" "DONE(d)")))
-        (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))
+        (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MISSED(m)")))
 
 (use-package org-super-agenda
   :ensure t
@@ -162,27 +162,7 @@
           :order 5)
          (:name "Overdue"
           :deadline past
-          :order 6)
-         (:name "Meetings"
-          :and (:todo "MEET" :scheduled future)
-          :order 7)
-         ;; Groups supply their own section names when none are given
-         (:todo "WAITING" :order 8)  ; Set order of this section
-         (:todo ("SOMEDAY" "TO READ" "CHECK" "TO WATCH" "WATCHING")
-                ;; Show this group at the end of the agenda (since it has the
-                ;; highest number). If you specified this group last, items
-                ;; with these todo keywords that e.g. have priority A would be
-                ;; displayed in that group instead, because items are grouped
-                ;; out in the order the groups are listed.
-                :order 9)
-         (:priority<= "B"
-                      ;; Show this section after "Today" and "Important", because
-                      ;; their order is unspecified, defaulting to 0. Sections
-                      ;; are displayed lowest-number-first.
-                      :order 1)
-         ;; After the last group, the agenda will display items that didn't
-         ;; match any of these groups, with the default order position of 99
-         ))
+          :order 6)))
 
 ;; (let ((org-super-agenda-groups
 ;;        '(;; Each group has an implicit boolean OR operator between its selectors.
