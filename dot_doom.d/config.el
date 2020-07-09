@@ -9,6 +9,7 @@
  +org-journal-path "~/Dropbox/org/roam/private/journal/"
  +org-capture-tasks-path "~/Dropbox/org/tasks/"
  +org-capture-tasks-file "~/Dropbox/org/tasks/tasks.org"
+ +org-capture-work-tasks-file "~/Dropbox/org/tasks/work.org"
  +org-capture-habits-file "~/Dropbox/org/tasks/habits.org"
  +org-capture-inbox-file "~/Dropbox/org/roam/private/inbox.org")
  ;; +projectile-personal-projects-path "~/Documents/projects/personal/"
@@ -125,6 +126,9 @@
                           "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("t" "task" entry
                           (file +org-capture-tasks-file)
+                          "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("w" "work" entry
+                          (file +org-capture-work-tasks-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("h" "habit" entry
                           (file +org-capture-habits-file)
