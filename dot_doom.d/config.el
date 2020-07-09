@@ -358,3 +358,5 @@
                           ;; force fringe update
                           (set-window-buffer nil (current-buffer)))))
 
+(require 'company-terraform)
+(company-terraform-init)
