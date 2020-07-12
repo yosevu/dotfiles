@@ -140,3 +140,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 source ~/.iterm2_shell_integration.zsh
 
 export PATH="/usr/local/sbin:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
