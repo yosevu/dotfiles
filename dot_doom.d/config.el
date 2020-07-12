@@ -11,6 +11,7 @@
  +org-capture-tasks-file "~/Dropbox/org/tasks/tasks.org"
  +org-capture-work-tasks-file "~/Dropbox/org/tasks/work.org"
  +org-capture-habits-file "~/Dropbox/org/tasks/habits.org"
+ +org-capture-questions-file "~/Dropbox/org/tasks/questions.org"
  +org-capture-inbox-file "~/Dropbox/org/roam/private/inbox.org")
  ;; +projectile-personal-projects-path "~/Documents/projects/personal/"
  ;; +projectile-work-projects-path "~/Documents/projects/work/"
@@ -129,6 +130,9 @@
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("w" "work" entry
                           (file +org-capture-work-tasks-file)
+                          "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("q" "question" entry
+                          (file +org-capture-questions-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("h" "habit" entry
                           (file +org-capture-habits-file)
