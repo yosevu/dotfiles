@@ -387,3 +387,20 @@
                                                  "mplayer"
                                                  file))))))
 
+(add-hook 'cider-mode-hook
+          '(lambda () (add-hook 'after-save-hook
+                           '(lambda ()
+                              (if (and (boundp 'cider-mode) cider-mode)
+                                  (cider-namespace-refresh)
+                                )))))
+
+(defun cider-namespace-refresh ()
+  (interactive)
+  (cider-interactive-eval
+   (cider-ns-refresh)))
+
+(map! :after clojure-mode
+      :map clojure-mode-map
+      :localleader
+      (:prefix ("e" . "eval")
+       "s" #'cider-eval-sexp-at-point))
