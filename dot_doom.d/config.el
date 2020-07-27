@@ -18,6 +18,9 @@
 
 ;; Font and themes
 (load-theme 'doom-nord t)
+
+(setq doom-font (font-spec :family "Fira Code" :size 13))
+
 ;; (load-theme 'doom-nord-light t)
 ;; (load-theme 'doom-opera-light t)
 ;; (load-theme 'doom-palenight t)
