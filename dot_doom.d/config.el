@@ -236,12 +236,12 @@
         :desc "org-roam-show-graph"             "g" #'org-roam-show-graph
         :desc "org-roam-insert"                 "i" #'org-roam-insert
         :desc "org-roam-capture"                "c" #'org-roam-capture)
-        ;; (:prefix ("R" . "roam")
-        ;;  (:prefix  ("d" . "by date")
-        ;;   :desc "org-roam-dailies-date"           "d" #'org-roam-dailies-date
-        ;;   :desc "org-roam-dailies-today"          "t" #'org-roam-dailies-today
-        ;;   :desc "org-roam-dailies-tomorrow"       "m" #'org-roam-dailies-tomorrow
-        ;;   :desc "org-roam-dailies-yesterday"      "y" #'org-roam-dailies-yesterday))
+  ;; (:prefix ("R" . "roam")
+  ;;  (:prefix  ("d" . "by date")
+  ;;   :desc "org-roam-dailies-date"           "d" #'org-roam-dailies-date
+  ;;   :desc "org-roam-dailies-today"          "t" #'org-roam-dailies-today
+  ;;   :desc "org-roam-dailies-tomorrow"       "m" #'org-roam-dailies-tomorrow
+  ;;   :desc "org-roam-dailies-yesterday"      "y" #'org-roam-dailies-yesterday))
   :custom
   (org-roam-directory +org-roam-path)
   (org-roam-index-file "index.org")
@@ -290,15 +290,15 @@
              (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
         (s-downcase slug))))
 
-;; org-roam org-export hook to add backlinks
-    (defun my/org-roam--backlinks-list (file)
-      (if (org-roam--org-roam-file-p file)
-          (--reduce-from
-           (concat acc (format "- [[file:%s][%s]]\n"
-                               (file-relative-name (car it) +org-roam-path)
-                               (org-roam--get-title-or-slug (car it))))
-           "" (org-roam-db-query [:select [from] :from links :where (= to $s1)] file))
-        ""))
+  ;; org-roam org-export hook to add backlinks
+  (defun my/org-roam--backlinks-list (file)
+    (if (org-roam--org-roam-file-p file)
+        (--reduce-from
+         (concat acc (format "- [[file:%s][%s]]\n"
+                             (file-relative-name (car it) +org-roam-path)
+                             (org-roam--get-title-or-slug (car it))))
+         "" (org-roam-db-query [:select [from] :from links :where (= to $s1)] file))
+      ""))
 
   (defun my/org-export-preprocessor (backend)
     (let ((links (my/org-roam--backlinks-list (buffer-file-name))))
