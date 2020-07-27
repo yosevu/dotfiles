@@ -55,6 +55,7 @@
                                       "If you don't know where you're going, you might not get there - Yogi Berra"
                                       "Substitute nuance for novelty - Angela Duckworth"
                                       "If you want to test your memory, try to remember what you were worrying about one year ago today. - E. Joseph Cossman")))
+  "Don't ask yourself what the world needs. Ask yourself what makes you come alive and then go do that. Because what the world needs is people who have come alive. - Howard Thurman"
   :config
   (dashboard-setup-startup-hook))
 
