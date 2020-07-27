@@ -192,29 +192,29 @@
   :config (org-super-agenda-mode))
 
 (setq org-super-agenda-groups
-       '(;; Each group has an implicit boolean OR operator between its selectors.
-         (:name "Habits"
-          :tag "pesonal"
-          :habit t)
-         (:name "Today"  ; Optionally specify section name
-          :time-grid t  ; Items that appear on the time grid
-          :date today
-          :order 1)
-         (:name "Due Today"
-          :deadline today
-          :order 2)
-         (:name "Next"
-          :todo "NEXT"
-          :order 3)
-         (:name "Important"
-          :priority "A"
-          :order 4)
-         (:name "Soon"
-          :scheduled future
-          :order 5)
-         (:name "Overdue"
-          :deadline past
-          :order 6)))
+      '(;; Each group has an implicit boolean OR operator between its selectors.
+        (:name "Habits"
+         :tag "pesonal"
+         :habit t)
+        (:name "Today"  ; Optionally specify section name
+         :time-grid t  ; Items that appear on the time grid
+         :date today
+         :order 1)
+        (:name "Due Today"
+         :deadline today
+         :order 2)
+        (:name "Next"
+         :todo "NEXT"
+         :order 3)
+        (:name "Important"
+         :priority "A"
+         :order 4)
+        (:name "Soon"
+         :scheduled future
+         :order 5)
+        (:name "Overdue"
+         :deadline past
+         :order 6)))
 
 (require 'htmlize)
 (require 'org-roam)
