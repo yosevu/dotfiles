@@ -32,6 +32,8 @@
 (doom-themes-org-config) ; Correct and improve org-mode's native fonts
 ;; (mac-auto-operator-composition-mode t) ; Ligature support for fonts like Fira Code. Works with emacs-mac.
 
+(global-visual-line-mode t)
+
 ;; Emacs Dashboard
 (use-package dashboard
   :ensure t
