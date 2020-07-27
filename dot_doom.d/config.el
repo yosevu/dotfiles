@@ -6,10 +6,12 @@
  ;; +org-publish-path "~/Dropbox/notes.yosevu.com/public/"
  ;; +org-publish-public-path "~/Dropbox/notes.yosevu.com/public/"
  +org-roam-path "~/Dropbox/org/roam/"
- +org-journal-path "~/Dropbox/org/roam/private/journal/"
+ +org-roam-path-private "~/Dropbox/org/roam/private/"
  +org-capture-tasks-path "~/Dropbox/org/tasks/"
  +org-capture-tasks-file "~/Dropbox/org/tasks/tasks.org"
- +org-capture-work-tasks-file "~/Dropbox/org/tasks/work.org"
+ +org-capture-personal-file "~/Dropbox/org/tasks/personal.org"
+ +org-capture-family-file "~/Dropbox/org/tasks/family.org"
+ +org-capture-work-file "~/Dropbox/org/tasks/work.org"
  +org-capture-habits-file "~/Dropbox/org/tasks/habits.org"
  +org-capture-questions-file "~/Dropbox/org/tasks/questions.org"
  +org-capture-inbox-file "~/Dropbox/org/roam/private/inbox.org")
@@ -64,7 +66,7 @@
 
 ;;(load! "lisp/alfred-org-capture")
 
-;; Org-mode
+
 ;; Set initial frame size and position
 (add-to-list 'initial-frame-alist '(fullscreen . fullheight))
 (add-to-list 'initial-frame-alist '(width . 0.5))
@@ -73,6 +75,7 @@
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
+;; Org-mode
 (require 'org)
 (require 'ob-clojure)
 (require 'cider)
@@ -137,11 +140,11 @@
          :desc "Open next entry" "n" #'org-journal-open-next-entry
          :desc "Search journal" "s" #'org-journal-search-forever))
   :custom
-  (org-journal-dir +org-journal-path)
-  (org-journal-file-format "%Y-%m-%d.org")
-  (org-journal-file-type 'weekly)
-  (org-journal-file-header "#+title: Week %V, %Y \n#+roam_tags: journal \n\n [[file:journal.org][Journal]] \n\n")
-  (org-journal-date-format "%Y-%m-%d (%A)")
+  (org-journal-dir +org-roam-path-private)
+  (org-journal-file-format "%Y-journal.org")
+  (org-journal-file-type 'yearly)
+  (org-journal-file-header "#+title: %Y Journal\n#+created: %Y-%m-%d\n#+roam_tags: \"private\" \"personal\" \"journal\"\n\n")
+  (org-journal-date-format "%Y-%m-%d (Week %V, %A)")
   (org-journal-time-prefix "")
   (org-journal-time-format ""))
 
@@ -165,11 +168,11 @@
                          ("t" "task" entry
                           (file +org-capture-tasks-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("w" "work" entry
-                          (file +org-capture-work-tasks-file)
+                         ("f" "family" entry
+                          (file +org-capture-family-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("q" "question" entry
-                          (file +org-capture-questions-file)
+                         ("w" "work" entry
+                          (file +org-capture-work-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("h" "habit" entry
                           (file +org-capture-habits-file)
