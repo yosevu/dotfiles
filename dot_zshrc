@@ -141,5 +141,9 @@ source ~/.iterm2_shell_integration.zsh
 
 export PATH="/usr/local/sbin:$PATH"
 
+export GOPATH=$HOME/go
+
+export PATH="$GOPATH/bin:$PATH"
+
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
