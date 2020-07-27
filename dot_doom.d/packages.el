@@ -1,6 +1,10 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; .doom.d/packages.el
 
+;; Doom's packages are pinned to a specific commit and updated from release to
+;; release. The ~unpin!~ macro allows you to unpin single packages.
+;; (unpin! org-roam)
+
 ;;; Examples:
 ;; (package! some-package)
 ;; (package! another-package :recipe (:host github :repo "username/repo"))
