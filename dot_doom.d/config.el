@@ -219,6 +219,12 @@
 (require 'htmlize)
 (require 'org-roam)
 
+(map! :after terraform-mode
+      :map terraform-mode-map
+      :localleader
+      :desc "terraform fmt"  "f" (cmd! (compile "terraform fmt"))
+      :desc "terraform refresh"  "r" (cmd! (compile "terraform refresh"))
+      :desc "terraform validate"  "v" (cmd! (compile "terraform validate")))
 (use-package! org-roam
   :init
   (map! :leader
