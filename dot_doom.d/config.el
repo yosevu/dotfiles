@@ -129,6 +129,10 @@
   :ensure t
   :commands yas-minor-mode
   :hook (go-mode . yas-minor-mode))
+
+(use-package graphql-mode
+              :ensure t)
+
 ;; org-journal config
 (use-package org-journal
   :after org
