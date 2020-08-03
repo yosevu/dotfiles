@@ -1,22 +1,28 @@
 ;;; .doom.d/config.el -*- lexical-binding: t; -*-
 
-; Custom vars
+;; Custom vars
 (setq
+ ;; Directories
  +org-path "~/Dropbox/org/"
- ;; +org-publish-path "~/Dropbox/notes.yosevu.com/public/"
- ;; +org-publish-public-path "~/Dropbox/notes.yosevu.com/public/"
  +org-roam-path "~/Dropbox/org/roam/"
  +org-roam-path-private "~/Dropbox/org/roam/private/"
  +org-capture-tasks-path "~/Dropbox/org/tasks/"
- +org-capture-tasks-file "~/Dropbox/org/tasks/tasks.org"
- +org-capture-personal-file "~/Dropbox/org/tasks/personal.org"
- +org-capture-family-file "~/Dropbox/org/tasks/family.org"
- +org-capture-work-file "~/Dropbox/org/tasks/work.org"
- +org-capture-habits-file "~/Dropbox/org/tasks/habits.org"
- +org-capture-questions-file "~/Dropbox/org/tasks/questions.org"
- +org-capture-inbox-file "~/Dropbox/org/roam/private/inbox.org")
+ ;; +org-publish-path "~/Dropbox/notes.yosevu.com/public/"
+ ;; +org-publish-public-path "~/Dropbox/notes.yosevu.com/public/"
  ;; +projectile-personal-projects-path "~/Documents/projects/personal/"
  ;; +projectile-work-projects-path "~/Documents/projects/work/"
+
+ ;; Lists
+ +org-capture-articles-file "~/Dropbox/org/roam/private/articles.org"
+ +org-capture-audio-video-file "~/Dropbox/org/roam/private/audio-video.org"
+ +org-capture-books-file "~/Dropbox/org/roam/private/books.org"
+ +org-capture-ideas-file "~/Dropbox/org/roam/private/ideas.org"
+ +org-capture-software-file "~/Dropbox/org/roam/private/software.org"
+
+ ;; Tasks
+ +org-capture-personal-file "~/Dropbox/org/tasks/personal.org"
+ +org-capture-family-file "~/Dropbox/org/tasks/family.org"
+ +org-capture-work-file "~/Dropbox/org/tasks/work.org")
 
 ;; Font and themes
 
@@ -166,11 +172,9 @@
  org-log-done 'time
  css-indent-offset 2
  ;; org-refile-targets (quote ((nil :maxlevel . 1)))
- org-capture-templates '(("i" "inbox" entry
-                          (file +org-capture-inbox-file)
-                          "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("t" "task" entry
-                          (file +org-capture-tasks-file)
+ org-capture-templates '(
+                         ("p" "personal" entry
+                          (file +org-capture-personal-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("f" "family" entry
                           (file +org-capture-family-file)
@@ -178,9 +182,22 @@
                          ("w" "work" entry
                           (file +org-capture-work-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("h" "habit" entry
-                          (file +org-capture-habits-file)
-                          "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)))
+                         ("a" "article" entry
+                          (file +org-capture-articles-file)
+                          "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("v" "audio/video" entry
+                          (file +org-capture-audio-video-file)
+                          "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("b" "book" entry
+                          (file +org-capture-books-file)
+                          "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("i" "idea" entry
+                          (file +org-capture-ideas-file)
+                          "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("s" "software" entry
+                          (file +org-capture-software-file)
+                          "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ))
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
