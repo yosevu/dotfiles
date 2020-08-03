@@ -139,6 +139,9 @@
 (use-package graphql-mode
               :ensure t)
 
+(use-package anki-editor
+  :ensure t)
+
 ;; org-journal config
 (use-package org-journal
   :after org
