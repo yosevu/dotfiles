@@ -137,7 +137,7 @@
   :hook (go-mode . yas-minor-mode))
 
 (use-package graphql-mode
-              :ensure t)
+  :ensure t)
 
 (use-package anki-editor
   :ensure t)
@@ -156,7 +156,7 @@
   (org-journal-dir +org-roam-path-private)
   (org-journal-file-format "%Y-journal.org")
   (org-journal-file-type 'yearly)
-  (org-journal-file-header "#+title: %Y Journal\n#+created: %Y-%m-%d\n#+roam_tags: \"private\" \"personal\" \"journal\"\n\n")
+  (org-journal-file-header "#+title: %Y Journal\n#+created: %Y-%m-%d\n#+roam_tags: \"private\" \"personal\"\n\n")
   (org-journal-date-format "%Y-%m-%d (Week %V, %A)")
   (org-journal-time-prefix "")
   (org-journal-time-format ""))
@@ -204,7 +204,7 @@
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-      ;; '((sequence "TODO(t)" "DONE(d)")))
+        ;; '((sequence "TODO(t)" "DONE(d)")))
         (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MISSED(m)")))
 
 (use-package org-super-agenda
@@ -245,6 +245,7 @@
       :desc "terraform fmt"  "f" (cmd! (compile "terraform fmt"))
       :desc "terraform refresh"  "r" (cmd! (compile "terraform refresh"))
       :desc "terraform validate"  "v" (cmd! (compile "terraform validate")))
+
 (use-package! org-roam
   :init
   (map! :leader
@@ -276,11 +277,6 @@
       "%?"
       :file-name "private/${slug}"
       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"work\"\n\n"
-      :unnarrowed t)
-     ("f" "flash cards" plain (function org-roam--capture-get-point)
-      "%?"
-      :file-name "${slug}"
-      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \" bkflash cards\"\n\n"
       :unnarrowed t)
      ("t" "draft" plain (function org-roam--capture-get-point)
       "%?"
@@ -327,7 +323,10 @@
           (goto-char (point-max))
           (insert (concat "\n* Backlinks\n") links))))))
 
-  (add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor)
+;; hide org-roam-buffer by default
+(setq +org-roam-open-buffer-on-find-file nil)
+
+(add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor)
 
 ;; org-publish config
 (require 'ox-publish)
