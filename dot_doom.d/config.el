@@ -6,6 +6,7 @@
  +org-path "~/Dropbox/org/"
  +org-roam-path "~/Dropbox/org/roam/"
  +org-roam-path-private "~/Dropbox/org/roam/private/"
+ +org-journal-path "~/Dropbox/org/roam/private/journal/"
  +org-capture-tasks-path "~/Dropbox/org/tasks/"
  ;; +org-publish-path "~/Dropbox/notes.yosevu.com/public/"
  ;; +org-publish-public-path "~/Dropbox/notes.yosevu.com/public/"
@@ -149,15 +150,16 @@
   (map! :leader
         (:prefix ("j" . "journal") ;; org-journal bindings
          :desc "Create new journal entry" "j" #'org-journal-new-entry
+         :desc "Create new date entry" "d" #'org-journal-new-date-entry
          :desc "Open previous entry" "p" #'org-journal-open-previous-entry
          :desc "Open next entry" "n" #'org-journal-open-next-entry
          :desc "Search journal" "s" #'org-journal-search-forever))
   :custom
-  (org-journal-dir +org-roam-path-private)
-  (org-journal-file-format "%Y-journal.org")
-  (org-journal-file-type 'yearly)
-  (org-journal-file-header "#+title: %Y Journal\n#+created: %Y-%m-%d\n#+roam_tags: \"private\" \"personal\"\n\n")
-  (org-journal-date-format "%Y-%m-%d (Week %V, %A)")
+  (org-journal-dir +org-journal-path)
+  (org-journal-file-format "%Y-%m-%d.org")
+  (org-journal-file-type 'weekly)
+  (org-journal-file-header "#+title: Week %V, %Y\n#+created: %Y-%m-%d\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n[[file:../journal.org][Journal]]\n\n")
+  (org-journal-date-format "%Y-%m-%d (%A)")
   (org-journal-time-prefix "")
   (org-journal-time-format ""))
 
