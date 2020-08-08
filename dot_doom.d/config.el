@@ -143,6 +143,9 @@
 (use-package anki-editor
   :ensure t)
 
+(use-package annotate
+  :ensure t)
+
 ;; org-journal config
 (use-package org-journal
   :after org
