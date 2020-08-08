@@ -27,13 +27,13 @@
 
 ;; Font and themes
 
-(setq doom-font (font-spec :family "Fira Code" :size 13))
+(setq doom-font (font-spec :family "Fira Code" :size 12))
 
 ;; (load-theme 'doom-nord t)
 ;; (load-theme 'doom-nord-light t)
 ;; (load-theme 'doom-opera-light t)
-;; (load-theme 'doom-palenight t)
-(load-theme 'doom-solarized-light t)
+(load-theme 'doom-palenight t)
+;; (load-theme 'doom-solarized-light t)
 ;; (load-theme 'doom-gruvbox-light t)
 ;; (load-theme 'dracula t)
 ;; (load-theme 'palenight t)
