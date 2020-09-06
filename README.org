@@ -3,7 +3,7 @@
 
 ** [[https://github.com/twpayne/chezmoi][chezmoi]]
 
-Manage dotfiles across multple machines, securely.
+[[https://github.com/twpayne/chezmoi][GitHub - twpayne/chezmoi: Manage your dotfiles across multiple machines, securely.]]
 
 ~dot~ is an alias for ~chezmoi~.
 
@@ -12,6 +12,10 @@ Manage dotfiles across multple machines, securely.
 - [[https://github.com/twpayne/chezmoi/blob/master/docs/REFERENCE.md][Reference Manual]]
 
 ** Emacs
+"An extensible, customizable, free/libre text editor — and more."
+
+- [[https://www.gnu.org/software/emacs/][GNU Emacs - GNU Project]]
+
 *** Versions
 - [[https://github.com/d12frosted/homebrew-emacs-plus][homebrew-emacs-plus]]
 *** Packages
@@ -20,5 +24,11 @@ Manage dotfiles across multple machines, securely.
 - [[https://github.com/akermu/emacs-libvterm][emacs-libvterm]]
 - [[https://github.com/magit/magit][magit]]
 - [[https://github.com/magit/forge][forge]]
+
 ** Zsh
-- [[https://ohmyz.sh/][Oh My Zsh]]
+
+[[https://ohmyz.sh/][Oh My Zsh - a delightful & open source framework for Zsh]]
+
+** iTerm2
+
+[[https://iterm2.com/][iTerm2 - macOS Terminal Replacement]]
