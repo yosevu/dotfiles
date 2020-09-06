@@ -105,6 +105,8 @@
          (typescript-mode . tide-hl-identifier-mode)
          (before-save . tide-format-before-save)))
 
+(add-hook 'vue-mode-hook #'lsp!)
+
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)

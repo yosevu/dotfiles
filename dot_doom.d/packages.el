@@ -11,6 +11,7 @@
 ;; (package! builtin-package :disable t)
 (package! org-journal)
 (package! org-super-agenda)
+(package! vue-mode)
 ;;(package! alfred-org-capture :recipe (
 ;;                                      :fetcher github
 ;;                                      :repo "jjasghar/alfred-org-capture"
