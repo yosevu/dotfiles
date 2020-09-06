@@ -7,23 +7,22 @@
  +org-roam-path "~/Dropbox/org/roam/"
  +org-roam-path-private "~/Dropbox/org/roam/private/"
  +org-journal-path "~/Dropbox/org/roam/private/journal/"
- +org-capture-tasks-path "~/Dropbox/org/tasks/"
  ;; +org-publish-path "~/Dropbox/notes.yosevu.com/public/"
  ;; +org-publish-public-path "~/Dropbox/notes.yosevu.com/public/"
  ;; +projectile-personal-projects-path "~/Documents/projects/personal/"
  ;; +projectile-work-projects-path "~/Documents/projects/work/"
 
  ;; Lists
- +org-capture-articles-file "~/Dropbox/org/roam/private/articles.org"
- +org-capture-audio-video-file "~/Dropbox/org/roam/private/audio-video.org"
+ +org-capture-notes-file "~/Dropbox/org/roam/private/notes.org"
+ +org-capture-links-file "~/Dropbox/org/roam/private/links.org"
  +org-capture-books-file "~/Dropbox/org/roam/private/books.org"
- +org-capture-ideas-file "~/Dropbox/org/roam/private/ideas.org"
- +org-capture-software-file "~/Dropbox/org/roam/private/software.org"
+ +org-capture-resources-file "~/Dropbox/org/roam/private/resources.org"
+ ;; +org-capture-ideas-file "~/Dropbox/org/roam/private/ideas.org"
+ +org-capture-tools-file "~/Dropbox/org/roam/private/tools.org"
 
  ;; Tasks
- +org-capture-personal-file "~/Dropbox/org/tasks/personal.org"
- +org-capture-family-file "~/Dropbox/org/tasks/family.org"
- +org-capture-work-file "~/Dropbox/org/tasks/work.org")
+ +org-capture-personal-file "~/Dropbox/org/personal.org"
+ +org-capture-work-file "~/Dropbox/org/work.org")
 
 ;; Font and themes
 
@@ -181,29 +180,29 @@
  css-indent-offset 2
  ;; org-refile-targets (quote ((nil :maxlevel . 1)))
  org-capture-templates '(
-                         ("p" "personal" entry
+                         ("p" "personal task" entry
                           (file +org-capture-personal-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("f" "family" entry
-                          (file +org-capture-family-file)
-                          "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("w" "work" entry
+                         ("w" "work task" entry
                           (file +org-capture-work-file)
                           "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("a" "article" entry
-                          (file +org-capture-articles-file)
+                         ("f" "fleeting note" entry
+                          (file +org-capture-notes-file)
                           "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("v" "audio/video" entry
-                          (file +org-capture-audio-video-file)
+                         ("l" "link" entry
+                          (file +org-capture-links-file)
                           "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("b" "book" entry
                           (file +org-capture-books-file)
                           "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("i" "idea" entry
-                          (file +org-capture-ideas-file)
-                          "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("s" "software" entry
-                          (file +org-capture-software-file)
+                         ("r" "resource" entry
+                          (file +org-capture-resources-file)
+                          "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ;; ("i" "idea" entry
+                         ;;  (file +org-capture-ideas-file)
+                         ;;  "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("t" "tool" entry
+                          (file +org-capture-tools-file)
                           "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                          ))
 
