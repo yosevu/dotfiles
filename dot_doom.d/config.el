@@ -95,18 +95,6 @@
  projectile-project-search-path '("~/Documents/projects/personal/" "~/Documents/projects/work/")
  visual-line-mode t)
 
-;; tide config
-(use-package tide
-  :ensure t
-  :after (typescript-mode company flycheck)
-  :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save)))
-(use-package anki-editor
-  :ensure t)
-
-(use-package annotate
-  :ensure t)
 
 ;; org-journal config
 (use-package org-journal
@@ -340,6 +328,20 @@
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
   (deft-directory +org-roam-path))
+
+;; tide config
+(use-package tide
+  :ensure t
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)
+         (before-save . tide-format-before-save)))
+
+(use-package anki-editor
+  :ensure t)
+
+(use-package annotate
+  :ensure t)
 
 (use-package pomidor
   :bind (("<f12>" . pomidor))
