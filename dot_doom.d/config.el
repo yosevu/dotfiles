@@ -282,34 +282,35 @@
       (unless (string= links "")
         (save-excursion
           (goto-char (point-max))
-          (insert (concat "\n* Backlinks\n") links))))))
+          (insert (concat "\n* Links\n") links))))))
 
 ;; Hide org-roam-buffer by default
 (setq +org-roam-open-buffer-on-find-file nil)
 
-(add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor)
+  (add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor)
 
 ;; org-publish config
 (require 'ox-publish)
 (setq org-publish-project-alist
       '(("org-notes"
-      :auto-sitemap t
-      :sitemap-filename "index.org"
-      :sitemap-title "Index"
-      :base-directory "~/Dropbox/org/roam/"
-      :base-extension "org"
-      :exclude "private"
-      :publishing-directory "~/Dropbox/notes.yosevu.com/public/"
-      :recursive t
-      :publishing-function org-html-publish-to-html
-      :section-numbers nil
-      :html-head-extra "<link rel='stylesheet' href='css/main.css' type='text/css'/>"
-      :headline-levels 4
-      :auto-preamble t)
+         ;; :auto-sitemap t
+         ;; :sitemap-filename "index.org"
+         ;; :sitemap-title "Index"
+         :base-directory "~/Dropbox/org/roam"
+         :base-extension "org"
+         :exclude "private"
+         :publishing-directory "~/Documents/projects/personal/notes.yosevu.com/public"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :section-numbers nil
+         :html-head-extra "<link rel='stylesheet' href='css/main.css' type='text/css'/>"
+         :html-postamble nil
+         :headline-levels 4
+         :auto-preamble t)
         ("org-static"
-         :base-directory "~/Dropbox/notes.yosevu.com/"
+         :base-directory "~/Documents/projects/personal/notes.yosevu.com/static"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-         :publishing-directory "~/Dropbox/notes.yosevu.com/public/"
+         :publishing-directory "~/Documents/projects/personal/notes.yosevu.com/public"
          :recursive t
          :publishing-function org-publish-attachment)
         ("org" :components ("org-notes" "org-static"))))
