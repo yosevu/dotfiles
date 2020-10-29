@@ -39,7 +39,15 @@
 ;; (mac-auto-operator-composition-mode t) ; Ligature support for fonts like Fira Code. Works with emacs-mac.
 
 (global-visual-line-mode t)
+;; Entries older than 1 month are marked as read
+(after! elfeed
+  (setq elfeed-search-filter "@12-months-ago +unread"))
 
+(use-package! poke-line
+  :ensure t
+  :config
+  (poke-line-global-mode 1)
+  (setq-default poke-line-pokemon "mewtwo"))
 ;; Emacs Dashboard
 (use-package dashboard
   :ensure t
