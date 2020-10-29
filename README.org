@@ -1,7 +1,7 @@
 #+title: dotfiles
 #+author: "Yosevu Kilonzo"
 
-** [[https://github.com/twpayne/chezmoi][chezmoi]]
+** chezmoi
 
 [[https://github.com/twpayne/chezmoi][GitHub - twpayne/chezmoi: Manage your dotfiles across multiple machines, securely.]]
 
@@ -12,22 +12,23 @@
 - [[https://github.com/twpayne/chezmoi/blob/master/docs/REFERENCE.md][Reference Manual]]
 
 ** Emacs
+
 "An extensible, customizable, free/libre text editor — and more."
 
-- [[https://www.gnu.org/software/emacs/][GNU Emacs - GNU Project]]
+[[https://www.gnu.org/software/emacs/][GNU Emacs - GNU Project]]
 
-*** Versions
-- [[https://github.com/d12frosted/homebrew-emacs-plus][homebrew-emacs-plus]]
+- Version: [[https://github.com/d12frosted/homebrew-emacs-plus][homebrew-emacs-plus]]
+- Framework: [[https://github.com/hlissner/doom-emacs][doom-emacs]]
+
 *** Packages
-- [[https://github.com/hlissner/doom-emacs][doom-emacs]]
+
 - [[https://github.com/org-roam/org-roam][org-roam]]
-- [[https://github.com/akermu/emacs-libvterm][emacs-libvterm]]
-- [[https://github.com/magit/magit][magit]]
-- [[https://github.com/magit/forge][forge]]
 
 ** Zsh
 
-[[https://ohmyz.sh/][Oh My Zsh - a delightful & open source framework for Zsh]]
+[[https://www.zsh.org/][Zsh]]
+
+- Framework: [[https://ohmyz.sh/][Oh My Zsh - a delightful & open source framework for Zsh]]
 
 ** iTerm2
 
