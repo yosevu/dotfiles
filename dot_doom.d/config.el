@@ -414,10 +414,10 @@
 
 (add-hook 'cider-mode-hook
           '(lambda () (add-hook 'after-save-hook
-                           '(lambda ()
-                              (if (and (boundp 'cider-mode) cider-mode)
-                                  (cider-namespace-refresh)
-                                )))))
+                                '(lambda ()
+                                   (if (and (boundp 'cider-mode) cider-mode)
+                                       (cider-namespace-refresh)
+                                     )))))
 
 (defun cider-namespace-refresh ()
   (interactive)
@@ -429,6 +429,9 @@
       :localleader
       (:prefix ("e" . "eval")
        "s" #'cider-eval-sexp-at-point))
+
+(setq cider-stacktrace-default-filters '(tooling dup))
+(setq cider-stacktrace-default-filters '(project))
 (defun show-in-finder ()
   (interactive)
   (shell-command (concat "open -R " buffer-file-name)))
