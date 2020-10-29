@@ -9,11 +9,13 @@
 ;; (package! some-package)
 ;; (package! another-package :recipe (:host github :repo "username/repo"))
 ;; (package! builtin-package :disable t)
-(package! org-journal)
+
+(package! org-roam :recipe (:host github :repo "org-roam/org-roam" :branch "master"))
 (package! org-super-agenda)
 (package! org-web-tools)
-(package! vue-mode)
-;;(package! alfred-org-capture :recipe (
-;;                                      :fetcher github
-;;                                      :repo "jjasghar/alfred-org-capture"
-;;                                      :files ("el/alfred-org-capture.el")))
+(package! vterm-extra :recipe (:host github :repo "Sbozzolo/vterm-extra" :branch "master"))
+;; Not currently using Vue.js
+;; (package! vue-mode)
+
+(package! org-cv
+  :recipe (:host gitlab :repo "Titan-C/org-cv"))
