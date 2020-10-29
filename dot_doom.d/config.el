@@ -90,6 +90,7 @@
 (require 'cider)
 
 (add-to-list 'org-modules 'org-habit t)
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
 (setq
  org-ellipsis " ▼ "
@@ -221,6 +222,7 @@
   (org-roam-directory +org-roam-path)
   (org-roam-db-location +org-roam-db-path)
   (org-roam-index-file "index.org")
+  (org-roam-file-extensions '("org" "txt"))
   (org-roam-completion-system 'ivy)
   (org-roam-capture-templates
    '(("d" "personal (default)" plain (function org-roam--capture-get-point)
