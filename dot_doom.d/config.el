@@ -87,6 +87,7 @@
 ;; Org-mode
 (require 'org)
 (require 'ob-clojure)
+(require 'ob-js)
 (require 'cider)
 
 (add-to-list 'org-modules 'org-habit t)
