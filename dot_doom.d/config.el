@@ -429,3 +429,6 @@
       :localleader
       (:prefix ("e" . "eval")
        "s" #'cider-eval-sexp-at-point))
+(defun show-in-finder ()
+  (interactive)
+  (shell-command (concat "open -R " buffer-file-name)))
