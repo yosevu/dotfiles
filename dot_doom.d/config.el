@@ -70,9 +70,6 @@
 (use-package forge
   :after magit)
 
-;;(load! "lisp/alfred-org-capture")
-
-
 ;; Set initial frame size and position
 (add-to-list 'initial-frame-alist '(fullscreen . fullheight))
 (add-to-list 'initial-frame-alist '(width . 0.5))
@@ -104,43 +101,6 @@
   :hook ((typescript-mode . tide-setup)
          (typescript-mode . tide-hl-identifier-mode)
          (before-save . tide-format-before-save)))
-
-(add-hook 'vue-mode-hook #'lsp!)
-
-(use-package lsp-mode
-  :ensure t
-  :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred))
-
-;; Set up before-save hooks to format buffer and add/delete imports.
-;; Make sure you don't have other gofmt/goimports hooks enabled.
-(defun lsp-go-install-save-hooks ()
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t))
-(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-
-;; Optional - provides fancier overlays.
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
-
-;; Company mode is a standard completion package that works well with lsp-mode.
-(use-package company
-  :ensure t
-  :config
-  ;; Optionally enable completion-as-you-type behavior.
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1))
-
-;; Optional - provides snippet support.
-(use-package yasnippet
-  :ensure t
-  :commands yas-minor-mode
-  :hook (go-mode . yas-minor-mode))
-
-(use-package graphql-mode
-  :ensure t)
-
 (use-package anki-editor
   :ensure t)
 
@@ -245,12 +205,6 @@
 (require 'htmlize)
 (require 'org-roam)
 
-(map! :after terraform-mode
-      :map terraform-mode-map
-      :localleader
-      :desc "terraform fmt"  "f" (cmd! (compile "terraform fmt"))
-      :desc "terraform refresh"  "r" (cmd! (compile "terraform refresh"))
-      :desc "terraform validate"  "v" (cmd! (compile "terraform validate")))
 
 (use-package! org-roam
   :init
@@ -368,15 +322,6 @@
   (setq
    org-agenda-files (directory-files +org-capture-tasks-path t "\\.org$" t))
    org-agenda-skip-scheduled-if-done t)
-
-(use-package hydra)
-(use-package org-fc
-  :load-path "~/Dropbox/org-fc"
-  :custom (org-fc-directories '("~/Dropbox/org/"))
-           (org-fc-review-history-file "~/Dropbox/org-fc.tsv")
-  :config
-  (require 'org-fc-hydra)
-  (require 'org-fc-keymap-hint))
 
 (use-package org-download
   :after org
