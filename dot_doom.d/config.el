@@ -2,27 +2,23 @@
 
 ;; Custom vars
 (setq
- ;; Directories
+ ;; File and directory paths
  +org-path "~/Dropbox/org/"
  +org-roam-path "~/Dropbox/org/roam/"
- +org-roam-path-private "~/Dropbox/org/roam/private/"
+ +org-roam-private-path "~/Dropbox/org/roam/private/"
  +org-journal-path "~/Dropbox/org/roam/private/journal/"
- ;; +org-publish-path "~/Dropbox/notes.yosevu.com/public/"
- ;; +org-publish-public-path "~/Dropbox/notes.yosevu.com/public/"
- ;; +projectile-personal-projects-path "~/Documents/projects/personal/"
- ;; +projectile-work-projects-path "~/Documents/projects/work/"
 
  ;; Lists
  +org-capture-notes-file "~/Dropbox/org/roam/private/notes.org"
- +org-capture-links-file "~/Dropbox/org/roam/private/links.org"
- +org-capture-books-file "~/Dropbox/org/roam/private/books.org"
- +org-capture-resources-file "~/Dropbox/org/roam/private/resources.org"
- ;; +org-capture-ideas-file "~/Dropbox/org/roam/private/ideas.org"
- +org-capture-tools-file "~/Dropbox/org/roam/private/tools.org"
+ +org-capture-links-file "~/Dropbox/org/roam/private/links.txt"
+ +org-capture-books-file "~/Dropbox/org/roam/private/books.txt"
+ +org-capture-resources-file "~/Dropbox/org/roam/private/resources.txt"
+ +org-capture-ideas-file "~/Dropbox/org/roam/private/ideas.txt"
+ +org-capture-tools-file "~/Dropbox/org/roam/private/tools.txt"
 
  ;; Tasks
- +org-capture-personal-file "~/Dropbox/org/personal.org"
- +org-capture-work-file "~/Dropbox/org/work.org")
+ +org-capture-personal-file "~/Dropbox/org/personal.txt"
+ +org-capture-work-file "~/Dropbox/org/work.txt")
 
 ;; Font and themes
 
@@ -133,34 +129,34 @@
  org-capture-templates '(
                          ("p" "personal task" entry
                           (file +org-capture-personal-file)
-                          "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                          "* TODO %?" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("w" "work task" entry
                           (file +org-capture-work-file)
-                          "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ("f" "fleeting note" entry
+                          "* TODO %?" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("n" "note (fleeting)" entry
                           (file +org-capture-notes-file)
-                          "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                          "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("l" "link" entry
                           (file +org-capture-links-file)
-                          "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                          "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("b" "book" entry
                           (file +org-capture-books-file)
-                          "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                          "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("r" "resource" entry
                           (file +org-capture-resources-file)
-                          "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                         ;; ("i" "idea" entry
-                         ;;  (file +org-capture-ideas-file)
-                         ;;  "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
+                          "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
+                         ("i" "idea" entry
+                          (file +org-capture-ideas-file)
+                          "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
                          ("t" "tool" entry
                           (file +org-capture-tools-file)
-                          "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                          "* %?" :prepend t :kill-buffer t :empty-lines-before 1)
                          ))
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "NONE(x)")
         ;; '((sequence "TODO(t)" "DONE(d)")))
-        (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MISSED(m)")))
+        (sequence "WAIT(w@/!)" "HOLD (h@/!)" "|" "CANC(c@/!)" "MISS(m)" "SKIP(s)")))
 
 (use-package org-super-agenda
   :ensure t
@@ -220,7 +216,7 @@
    '(("d" "personal (default)" plain (function org-roam--capture-get-point)
       "%?"
       :file-name "private/${slug}"
-      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n"
+      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n* Links\n** "
       :unnarrowed t)
      ("w" "work" plain (function org-roam--capture-get-point)
       "%?"
@@ -309,8 +305,8 @@
     (org-map-entries 'org-archive-subtree "/DONE" 'file))
   (require 'find-lisp)
   (setq
-   org-agenda-files (directory-files +org-capture-tasks-path t "\\.org$" t))
-   org-agenda-skip-scheduled-if-done t)
+   org-agenda-files (directory-files +org-path t "\\.org$" t))
+  org-agenda-skip-scheduled-if-done t)
 
 (use-package org-download
   :after org
