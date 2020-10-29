@@ -264,6 +264,9 @@
              (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
         (s-downcase slug))))
 
+  ;; hide org-roam-buffer by default
+  (setq +org-roam-open-buffer-on-find-file nil)
+
   ;; org-roam org-export hook to add backlinks
   (defun my/org-roam--backlinks-list (file)
     (if (org-roam--org-roam-file-p file)
@@ -281,7 +284,7 @@
           (goto-char (point-max))
           (insert (concat "\n* Backlinks\n") links))))))
 
-;; hide org-roam-buffer by default
+;; Hide org-roam-buffer by default
 (setq +org-roam-open-buffer-on-find-file nil)
 
 (add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor)
