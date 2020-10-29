@@ -5,6 +5,7 @@
  ;; File and directory paths
  +org-path "~/Dropbox/org/"
  +org-roam-path "~/Dropbox/org/roam/"
+ +org-roam-db-path "~/.emacs.d/org-roam.db"
  +org-roam-private-path "~/Dropbox/org/roam/private/"
  +org-journal-path "~/Dropbox/org/roam/private/journal/"
 
@@ -210,6 +211,7 @@
   ;;   :desc "org-roam-dailies-yesterday"      "y" #'org-roam-dailies-yesterday))
   :custom
   (org-roam-directory +org-roam-path)
+  (org-roam-db-location +org-roam-db-path)
   (org-roam-index-file "index.org")
   (org-roam-completion-system 'ivy)
   (org-roam-capture-templates
