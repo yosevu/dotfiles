@@ -220,6 +220,14 @@
   ;;   :desc "org-roam-dailies-tomorrow"       "m" #'org-roam-dailies-tomorrow
   ;;   :desc "org-roam-dailies-yesterday"      "y" #'org-roam-dailies-yesterday))
   :custom
+  (org-roam-dailies-directory +org-journal-path)
+  (org-roam-dailies-capture-templates
+   '(("d" "default" entry
+      #'org-roam-capture--get-point
+      "* %?"
+      :file-name "~/Dropbox/org/roam/private/journal/%<%Y-%m-%d>"
+      ;; :file-name "daily/%<%Y-%m-%d>"
+      :head "#+title: %<%Y-%m-%d>\n\n")))
   (org-roam-directory +org-roam-path)
   (org-roam-db-location +org-roam-db-path)
   (org-roam-index-file "index.org")
