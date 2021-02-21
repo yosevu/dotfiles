@@ -163,35 +163,38 @@
                                       "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))
              org-todo-keywords '((sequence "TODO(t)" "TODAY(a)" "NEXT(n)" "|" "DONE(d)" "NONE(x)")
                                  (sequence "WAIT(w@/!)" "HOLD (h@/!)" "|" "CANC(c@/!)" "MISS(m)" "SKIP(s)"))))
+(setq
+ org-agenda-files (directory-files +org-path t "\\.org$" t))
+;; org-agenda-skip-scheduled-if-done t)
 
-
-;; (use-package org-super-agenda
-;;   :config (org-super-agenda-mode))
-
-;; (setq org-super-agenda-groups
-;;       '(;; Each group has an implicit boolean OR operator between its selectors.
-;;         (:name "Habits"
-;;          :tag "pesonal"
-;;          :habit t)
-;;         (:name "Today"  ; Optionally specify section name
-;;          :time-grid t  ; Items that appear on the time grid
-;;          :date today
-;;          :order 1)
-;;         (:name "Due Today"
-;;          :deadline today
-;;          :order 2)
-;;         (:name "Next"
-;;          :todo "NEXT"
-;;          :order 3)
-;;         (:name "Important"
-;;          :priority "A"
-;;          :order 4)
-;;         (:name "Soon"
-;;          :scheduled future
-;;          :order 5)
-;;         (:name "Overdue"
-;;          :deadline past
-;;          :order 6)))
+;; Agenda
+(use-package! org-super-agenda
+  :after org-agenda
+  :init
+  (setq org-super-agenda-groups
+        '((:name "Habits"
+           :habit t)
+          (:name "Priority"
+           :tag "priority"
+           :order 2)
+          (:name "Projects"
+           :tag "Projects"
+           :order 3)
+          (:name "Programming"
+           :tag "programming")
+          (:name "PKM"
+           :tag "pkm")
+          (:name "Tools"
+           :tag "tools")
+          (:name "Integral"
+           :tag "integral")
+          (:name "Work"
+           :tag "work")
+          (:name "Chores"
+           :tag "chores"
+           :order 8)))
+  :config
+  (org-super-agenda-mode))
 
 ;; Org-roam
 ;; (require 'org-roam)
@@ -289,10 +292,7 @@
     "Archive all done tasks."
     (interactive)
     (org-map-entries 'org-archive-subtree "/DONE" 'file))
-  (require 'find-lisp)
-  (setq
-   org-agenda-files (directory-files +org-path t "\\.org$" t)))
-;; org-agenda-skip-scheduled-if-done t)
+  (require 'find-lisp))
 
 ;; (use-package org-download
 ;;   :after org
