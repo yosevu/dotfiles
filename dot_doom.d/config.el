@@ -233,6 +233,7 @@
   (org-roam-index-file "index.org")
   (org-roam-file-extensions '("org" "txt"))
   (org-roam-completion-system 'ivy)
+  (+org-roam-open-buffer-on-find-file nil)
   (org-roam-capture-templates
    '(("d" "personal (default)" plain (function org-roam--capture-get-point)
       "%?"
@@ -271,9 +272,6 @@
                       ("-$" . "")))  ;; remove ending underscore
              (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
         (s-downcase slug))))
-
-  ;; hide org-roam-buffer by default
-  ;; (setq +org-roam-open-buffer-on-find-file nil)
 
   ;; org-roam org-export hook to add backlinks
   (defun my/org-roam--backlinks-list (file)
