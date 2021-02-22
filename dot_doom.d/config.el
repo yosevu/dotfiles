@@ -157,10 +157,10 @@
              org-capture-templates '(
                                      ("t" "task" entry
                                       (file +org-capture-tasks-file)
-                                      "* TODO %?" :prepend t :kill-buffer t :empty-lines-before 1)
+                                      "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                                      ("n" "note" entry
                                       (file +org-capture-notes-file)
-                                      "* %?" :prepend t :kill-buffer t :empty-lines-before 1))
+                                      "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))
              org-todo-keywords '((sequence "TODO(t)" "TODAY(a)" "NEXT(n)" "|" "DONE(d)" "NONE(x)")
                                  (sequence "WAIT(w@/!)" "HOLD (h@/!)" "|" "CANC(c@/!)" "MISS(m)" "SKIP(s)"))))
 
