@@ -3,7 +3,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 ;; (setq user-full-name ""
-      ;; user-mail-address "")
+;; user-mail-address "")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -18,14 +18,23 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
+;; Font and themes
+(setq doom-font (font-spec :family "Fira Code" :size 14)
+      doom-big-font (font-spec :family "Fira Code" :size 18))
+
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-solarized-light)
+;; (setq doom-theme 'doom-nord)
+;; (setq doom-theme 'doom-nord-light)
+;; (setq doom-theme 'doom-palenight)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+;; (setq org-directory "~/Dropbox/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -60,19 +69,13 @@
 (setq
  ;; File and directory paths
  +org-path "~/Dropbox/org/"
- +org-roam-path "~/Dropbox/org/roam/"
+ +org-roam-path "~/Dropbox/org/notes/"
  +org-roam-db-path "~/.emacs.d/org-roam.db"
- +org-roam-private-path "~/Dropbox/org/roam/private/"
- +org-journal-path "~/Dropbox/org/roam/private/journal/"
+ +org-roam-private-path "~/Dropbox/org/notes/private/"
+ +org-journal-path "~/Dropbox/org/notes/private/journal/"
 
  ;; org-capture
- +org-capture-notes-file "~/Dropbox/org/roam/private/notes.org"
- +org-capture-tasks-file "~/Dropbox/org/tasks.org")
-
-;; Font and themes
-(setq doom-font (font-spec :family "Fira Code" :size 12))
-;; (setq doom-theme 'doom-solarized-light)
-(setq doom-theme 'doom-one)
+ +org-capture-inbox-file "~/Dropbox/org/inbox.org")
 
 ;; UI
 
@@ -80,6 +83,7 @@
 (add-hook! 'web-mode-hook  'display-fill-column-indicator-mode t)
 (add-hook! 'css-mode-hook  'display-fill-column-indicator-mode t)
 (add-hook! 'js-mode-hook   'display-fill-column-indicator-mode t)
+(add-hook! 'typescript-mode-hook   'display-fill-column-indicator-mode t)
 (add-hook! 'scss-mode-hook 'display-fill-column-indicator-mode t)
 
 ;; Set initial frame size and position
@@ -91,7 +95,6 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 ;;; Org-mode
-;; (require 'org)
 ;; (require 'ob-clojure)
 ;; (require 'ob-js)
 ;; (require 'cider)
@@ -100,30 +103,7 @@
 ;; (add-to-list 'org-modules 'org-habit t)
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
-;; dashboard
-;; (use-package! dashboard
-;;   :init
-;;   (progn
-;;     (setq dashboard-items '((agenda . 5)
-;;                             (bookmarks .5)
-;;                             (projects . 5)
-;;                             (recents . 5)
-;;                             (registers . 5)))
-;;     (setq dashboard-startup-banner 'official)
-;;     (setq dashboard-footer-messages '(
-;;                                       "We like to say that we don't get to choose our parents, that they were given by chance--yet we can truly choose whose children we'd like to be. - Seneca"
-;;                                       "Man lives on one quarter of what he eats. On the other three quarters live his doctors. - Unknown"
-;;                                       "If you want everything to be familiar, you will never learn anything new because it can't be significantly different from what you already know - Rich Hickey"
-;;                                       "The best thing a human being can do is to help another human being know more. - Charlie Munger"
-;;                                       "In my whole life, I have known no wise people (over a broad subject matter area) who didn't read all the time — none, zero. - Charlie Munger"
-;;                                       "To be everywhere is to be nowhere. - Seneca"
-;;                                       "If you don't know where you're going, you might not get there - Yogi Berra"
-;;                                       "Substitute nuance for novelty - Angela Duckworth"
-;;                                       "If you want to test your memory, try to remember what you were worrying about one year ago today. - E. Joseph Cossman")))
-;;   "Don't ask yourself what the world needs. Ask yourself what makes you come alive and then go do that. Because what the world needs is people who have come alive. - Howard Thurman"
-;;   :config
-;;   (dashboard-setup-startup-hook))
-
+(setq frame-title-format '("%b"))
 
 (setq
  projectile-project-search-path '("~/projects/personal/" "~/projects/work/")
@@ -156,122 +136,187 @@
              ;; org-outline-path-complete-in-steps nil
              org-capture-templates '(
                                      ("t" "task" entry
-                                      (file +org-capture-tasks-file)
+                                      (file +org-capture-inbox-file)
                                       "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                                      ("n" "note" entry
-                                      (file +org-capture-notes-file)
+                                      (file +org-capture-inbox-file)
                                       "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))
              org-todo-keywords '((sequence "TODO(t)" "TODAY(a)" "NEXT(n)" "|" "DONE(d)" "NONE(x)")
                                  (sequence "WAIT(w@/!)" "HOLD (h@/!)" "|" "CANC(c@/!)" "MISS(m)" "SKIP(s)"))))
 
 (after! org
-  (defun yosevu/org-archive-done-tasks ()
-    "Archive all done tasks."
-    (interactive)
-    (org-map-entries 'org-archive-subtree "/DONE" 'file))
-  (require 'find-lisp)
-  (setq
-   org-agenda-files (directory-files +org-path t "\\.org$" t)))
+ (defun yosevu/org-archive-done-tasks ()
+   "Archive all done tasks."
+   (interactive)
+   (org-map-entries 'org-archive-subtree "/DONE" 'file))
+ (require 'find-lisp)
+ (setq
+  org-agenda-files (directory-files +org-path t "\\.org$" t)))
 ;; org-agenda-skip-scheduled-if-done t)
 
 ;; org-super-agenda
-(use-package! org-super-agenda
-  :after org-agenda
-  :init
-  (setq org-super-agenda-groups
-        '((:name "Habits"
-           :habit t)
-          (:name "Priority"
-           :tag "priority"
-           :order 1)
-          (:name "Projects"
-           :tag "Projects"
-           :order 2)
-          (:name "Learning"
-           :tag ("learning" "reading"))
-          (:name "Programming"
-           :tag "programming")
-          (:name "PKM"
-           :tag "pkm")
-          (:name "Tools"
-           :tag "tools")
-          (:name "Integral"
-           :tag "integral")
-          (:name "Work"
-           :tag "work")
-          (:name "Chores"
-           :tag "chores"
-           :order 8)))
-  :config
-  (org-super-agenda-mode))
+;; (use-package! org-super-agenda
+;;   :after org-agenda
+;;   :init
+;;   (setq org-super-agenda-groups
+;;         '((:name "Habits"
+;;            :habit t)
+;;           (:name "Priority"
+;;            :tag "priority"
+;;            :order 1)
+;;           (:name "Projects"
+;;            :tag "Projects"
+;;            :order 2)
+;;           (:name "Learning"
+;;            :tag ("learning" "reading"))
+;;           (:name "Programming"
+;;            :tag "programming")
+;;           (:name "PKM"
+;;            :tag "pkm")
+;;           (:name "Tools"
+;;            :tag "tools")
+;;           (:name "Integral"
+;;            :tag "integral")
+;;           (:name "Work"
+;;            :tag "work")
+;;           (:name "Chores"
+;;            :tag "chores"
+;;            :order 8)))
+;;   :config
+;;   (org-super-agenda-mode))
 
-;; org-roam
-
+;; org-roam-v2
 (use-package! org-roam
-  ;; :after org-mode
+  :after org
   :init
   (map! :leader
         :prefix "n"
-        :desc "org-roam"                        "r" #'org-roam
-        :desc "org-roam-insert"                 "i" #'org-roam-insert
-        :desc "org-roam-switch-to-buffer"       "b" #'org-roam-switch-to-buffer
-        :desc "org-roam-find-file"              "f" #'org-roam-find-file
-        :desc "org-roam-show-graph"             "g" #'org-roam-show-graph
-        :desc "org-roam-insert"                 "i" #'org-roam-insert
-        :desc "org-roam-capture"                "c" #'org-roam-capture)
-  :custom
-  (org-roam-dailies-directory +org-journal-path)
-  (org-roam-dailies-capture-templates
-   '(("d" "default" entry
-      #'org-roam-capture--get-point
-      "* %?"
-      :file-name "~/Dropbox/org/roam/private/journal/%<%Y-%m-%d>"
-      :head "#+title: %<%Y-%m-%d>\n\n")))
-  (org-roam-directory +org-roam-path)
-  (org-roam-db-location +org-roam-db-path)
-  (org-roam-index-file "index.org")
-  (org-roam-file-extensions '("org" "txt"))
-  (org-roam-completion-system 'ivy)
-                                        ; Hide org-roam-buffer by default
-  (+org-roam-open-buffer-on-find-file nil)
-  (org-roam-capture-templates
-   '(("d" "personal (default)" plain (function org-roam--capture-get-point)
-      "%?"
-      :file-name "private/${slug}"
-      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n* Links\n** "
-      :unnarrowed t)
-     ("w" "work" plain (function org-roam--capture-get-point)
-      "%?"
-      :file-name "private/${slug}"
-      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"work\"\n\n"
-      :unnarrowed t)
-     ("t" "draft" plain (function org-roam--capture-get-point)
-      "%?"
-      :file-name "${slug}"
-      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"drafts\"\n\n"
-      :unnarrowed t)
-     ("p" "public" plain (function org-roam--capture-get-point)
-      "%?"
-      :file-name "${slug}"
-      :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"public\"\n\n"
-      :unnarrowed t)))
-  (org-roam-link-title-format "%s")
-  :config
-  (defun org-roam--title-to-slug (title)
-    "Convert title to a filename-suitable slug. Uses hyphens rather than underscores."
-    (cl-flet* ((nonspacing-mark-p (char)
-                                  (eq 'Mn (get-char-code-property char 'general-category)))
-               (strip-nonspacing-marks (s)
-                                       (apply #'string (seq-remove #'nonspacing-mark-p
-                                                                   (ucs-normalize-NFD-string s))))
-               (cl-replace (title pair)
-                           (replace-regexp-in-string (car pair) (cdr pair) title)))
-      (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-")  ;; convert anything not alphanumeric
-                      ("--*" . "-")  ;; remove sequential underscores
-                      ("^-" . "")  ;; remove starting underscore
-                      ("-$" . "")))  ;; remove ending underscore
-             (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
-        (s-downcase slug)))))
+        :desc "org-roam" "l" #'org-roam-buffer-toggle
+        :desc "org-roam-node-insert" "i" #'org-roam-node-insert
+        :desc "org-roam-node-find" "f" #'org-roam-node-find
+        :desc "org-roam-ref-find" "r" #'org-roam-ref-find
+        :desc "org-roam-show-graph" "g" #'org-roam-show-graph
+        :desc "org-roam-capture" "c" #'org-roam-capture
+        :desc "org-roam-dailies-capture-today" "j" #'org-roam-dailies-capture-today)
+  (setq org-roam-directory +org-roam-path)
+  (add-to-list 'display-buffer-alist
+               '(("\\*org-roam\\*"
+                  (display-buffer-in-direction)
+                  (direction . right)
+                  (window-width . 0.33)
+                  (window-height . fit-window-to-buffer))))
+ :config
+  ;; (setq org-roam-mode-sections
+  ;;       (list #'org-roam-backlinks-insert-section
+  ;;             #'org-roam-reflinks-insert-section
+  ;;             #'org-roam-unlinked-references-insert-section))
+ (org-roam-setup)
+ (setq org-roam-capture-templates
+  '(("d" "default" plain
+     "%?"
+     ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n* Links\n** "
+     :if-new (file+head "private/${slug}.org"
+                        "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
+     :immediate-finish t
+     :unnarrowed t)
+    ("p" "public" plain
+     "%?"
+     ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"public\"\n\n"
+     :if-new (file+head "${slug}.org"
+                        "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
+     :unnarrowed t)
+    ("w" "work" plain
+     "%?"
+     ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"work\"\n\n"
+     :if-new (file+head "work/${slug}.org"
+                        "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
+     :unnarrowed t))))
+
+;; (after! org-roam
+;;   (cl-defmethod org-roam-node-slug ((node org-roam-node))
+;;     (let ((title (org-roam-node-title node)))
+;;       (cl-flet* ((nonspacing-mark-p (char)
+;;                                     (memq char org-roam-slug-trim-chars))
+;;                  (strip-nonspacing-marks (s)
+;;                                          (ucs-normalize-NFC-string
+;;                                           (apply #'string (seq-remove #'nonspacing-mark-p
+;;                                                                       (ucs-normalize-NFD-string s)))))
+;;                  (cl-replace (title pair)
+;;                              (replace-regexp-in-string (car pair) (cdr pair) title)))
+;;         (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-")
+;;                         ("--*" . "-")
+;;                         ("^-" . "")
+;;                         ("-$" . "")))
+;;                (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
+;;           (downcase slug))))))
+
+;; org-roam
+
+;; (use-package! org-roam
+;;   ;; :after org-mode
+;;   :init
+;;   (map! :leader
+;;         :prefix "n"
+;;         :desc "org-roam"                        "r" #'org-roam
+;;         :desc "org-roam-insert"                 "i" #'org-roam-insert
+;;         :desc "org-roam-switch-to-buffer"       "b" #'org-roam-switch-to-buffer
+;;         :desc "org-roam-find-file"              "f" #'org-roam-find-file
+;;         :desc "org-roam-show-graph"             "g" #'org-roam-show-graph
+;;         :desc "org-roam-insert"                 "i" #'org-roam-insert
+;;         :desc "org-roam-capture"                "c" #'org-roam-capture)
+;;   :custom
+;;   (org-roam-dailies-directory +org-journal-path)
+;;   (org-roam-dailies-capture-templates
+;;    '(("d" "default" entry
+;;       #'org-roam-capture--get-point
+;;       "* %?"
+;;       :file-name "~/Dropbox/org/notes/private/journal/%<%Y-%m-%d>"
+;;       :head "#+title: %<%Y-%m-%d>\n\n")))
+;;   (org-roam-directory +org-roam-path)
+;;   (org-roam-db-location +org-roam-db-path)
+;;   (org-roam-index-file "index.org")
+;;   (org-roam-file-extensions '("org" "txt"))
+;;   (org-roam-completion-system 'ivy)
+;;                                         ; Hide org-roam-buffer by default
+;;   (+org-roam-open-buffer-on-find-file nil)
+;;   (org-roam-capture-templates
+;;    '(("d" "personal (default)" plain (function org-roam--capture-get-point)
+;;       "%?"
+;;       :file-name "private/${slug}"
+;;       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n* Links\n** "
+;;       :unnarrowed t)
+;;      ("w" "work" plain (function org-roam--capture-get-point)
+;;       "%?"
+;;       :file-name "private/${slug}"
+;;       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"work\"\n\n"
+;;       :unnarrowed t)
+;;      ("t" "draft" plain (function org-roam--capture-get-point)
+;;       "%?"
+;;       :file-name "${slug}"
+;;       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"drafts\"\n\n"
+;;       :unnarrowed t)
+;;      ("p" "public" plain (function org-roam--capture-get-point)
+;;       "%?"
+;;       :file-name "${slug}"
+;;       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"public\"\n\n"
+;;       :unnarrowed t)))
+;;   (org-roam-link-title-format "%s")
+;;   :config
+;;   (defun org-roam--title-to-slug (title)
+;;     "Convert title to a filename-suitable slug. Uses hyphens rather than underscores."
+;;     (cl-flet* ((nonspacing-mark-p (char)
+;;                                   (eq 'Mn (get-char-code-property char 'general-category)))
+;;                (strip-nonspacing-marks (s)
+;;                                        (apply #'string (seq-remove #'nonspacing-mark-p
+;;                                                                    (ucs-normalize-NFD-string s))))
+;;                (cl-replace (title pair)
+;;                            (replace-regexp-in-string (car pair) (cdr pair) title)))
+;;       (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-")  ;; convert anything not alphanumeric
+;;                       ("--*" . "-")  ;; remove sequential underscores
+;;                       ("^-" . "")  ;; remove starting underscore
+;;                       ("-$" . "")))  ;; remove ending underscore
+;;              (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
+;;         (s-downcase slug)))))
 
 ;; org-roam org-export hook to add backlinks
 ;; (defun my/org-roam--backlinks-list (file)
@@ -324,3 +369,7 @@
 
 ;; Suppress cl warning
 (setq byte-compile-warnings '(cl-functions));;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+;; Temporary
+(add-to-list 'auto-mode-alist '("\\.module\\'" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.theme\\'" . php-mode))
