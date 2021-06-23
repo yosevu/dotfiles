@@ -340,13 +340,6 @@
 
 ;;; Custom Package Configuration
 
-;; org-download
-;; (use-package! org-download
-;;   :after org
-;;   :bind
-;;   (:map org-mode-map
-;;    (("s-Y" . org-download-screenshot)
-;;     ("s-y" . org-download-yank))))
 ;; Clojure
 (map! :after cider
       :localleader
