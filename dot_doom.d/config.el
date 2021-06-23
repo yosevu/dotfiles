@@ -34,7 +34,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-;; (setq org-directory "~/Dropbox/org/")
+;; (setq org-directory "~/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -199,6 +199,7 @@
         :desc "org-roam-capture" "c" #'org-roam-capture
         :desc "org-roam-dailies-capture-today" "j" #'org-roam-dailies-capture-today)
   (setq org-roam-directory +org-roam-path)
+  (setq org-roam-dailies-directory +org-journal-path)
   (add-to-list 'display-buffer-alist
                '(("\\*org-roam\\*"
                   (display-buffer-in-direction)
