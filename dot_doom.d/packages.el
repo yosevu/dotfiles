@@ -22,6 +22,7 @@
 ;;    :files ("chrome.el")))
 
 (package! poke-line)
+(package! anki-editor)
 ;; (package! night-owl)
 
 (unpin! org-roam company-org-roam)

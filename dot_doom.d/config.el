@@ -360,12 +360,24 @@
 
 ;;; Custom Package Configuration
 
+;; org-download
+;; (use-package! org-download
+;;   :after org
+;;   :bind
+;;   (:map org-mode-map
+;;    (("s-Y" . org-download-screenshot)
+;;     ("s-y" . org-download-yank))))
+
 ;; Clojure
-(map! :after cider
-      :localleader
-      (:map (clojure-mode-map clojurescript-mode-map)
-       :desc "cider-eval-sexp-at-point"
-       "e p" #'cider-eval-sexp-at-point))
+;; (map! :after cider
+;;       :localleader
+;;       (:map (clojure-mode-map clojurescript-mode-map)
+;;        :desc "cider-eval-sexp-at-point"
+;;        "e p" #'cider-eval-sexp-at-point))
+
+;; anki-editor
+(use-package! anki-editor
+  :commands (anki-editor-mode))
 
 ;; deft
 (use-package! deft
