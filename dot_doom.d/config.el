@@ -34,7 +34,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-;; (setq org-directory "~/org/")
+(setq org-directory "~/Dropbox/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -152,6 +152,28 @@
  (require 'find-lisp)
  (setq
   org-agenda-files (directory-files +org-path t "\\.org$" t)))
+
+;; org-journal
+(use-package! org-journal
+  :after org
+  :init
+  (map! :leader
+        (:prefix ("j" . "journal") ;; org-journal bindings
+         :desc "Create new journal entry" "j" #'org-journal-new-entry
+         :desc "Create new date entry" "d" #'org-journal-new-date-entry
+         :desc "Open previous entry" "p" #'org-journal-open-previous-entry
+         :desc "Open next entry" "n" #'org-journal-open-next-entry
+         :desc "Search journal" "s" #'org-journal-search-forever))
+  :custom
+  (org-journal-dir +org-journal-path)
+  (org-journal-file-format "%Y-%m-%d.org")
+  (org-journal-file-type 'yearly)
+  (org-journal-file-header "#+title: %Y Journal\n#+created: %Y-%m-%d\n#+filetags: \"journal\"\n\n\n")
+  (org-journal-date-format "[%Y-%m-%d %a %R] - Week %V")
+  (org-journal-date-prefix "* ")
+  (org-journal-time-format "")
+  (org-journal-time-prefix ""))
+
 ;; org-agenda-skip-scheduled-if-done t)
 
 ;; org-super-agenda
@@ -196,10 +218,8 @@
         :desc "org-roam-node-find" "f" #'org-roam-node-find
         :desc "org-roam-ref-find" "r" #'org-roam-ref-find
         :desc "org-roam-show-graph" "g" #'org-roam-show-graph
-        :desc "org-roam-capture" "c" #'org-roam-capture
-        :desc "org-roam-dailies-capture-today" "j" #'org-roam-dailies-capture-today)
+        :desc "org-roam-capture" "c" #'org-roam-capture)
   (setq org-roam-directory +org-roam-path)
-  (setq org-roam-dailies-directory +org-journal-path)
   (add-to-list 'display-buffer-alist
                '(("\\*org-roam\\*"
                   (display-buffer-in-direction)
