@@ -207,6 +207,11 @@
 ;;   :config
 ;;   (org-super-agenda-mode))
 
+;; timestamp on save - requires :head "#+TITLE: ${title}\nTime-stamp: <>\n"
+
+(require 'time-stamp)
+(add-hook 'before-save-hook 'time-stamp)
+;; (add-hook 'write-file-functions 'time-stamp) ; update when saving
 ;; org-roam-v2
 (use-package! org-roam
   :after org
@@ -237,7 +242,7 @@
      "%?"
      ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n* Links\n** "
      :if-new (file+head "private/${slug}.org"
-                        "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
+                        "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+updated: Time-stamp: \" \"")
      :immediate-finish t
      :unnarrowed t)
     ("p" "public" plain
