@@ -19,9 +19,10 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; Font and themes
-(setq doom-font (font-spec :family "Fira Code" :size 14)
-      doom-big-font (font-spec :family "Fira Code" :size 18))
-
+(setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
+      doom-unicode-font (font-spec :family "Fira Sans" :size 14)
+      doom-big-font (font-spec :family "Fira Mono" :size 18))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -258,127 +259,14 @@
                         "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
      :unnarrowed t))))
 
-;; (after! org-roam
-;;   (cl-defmethod org-roam-node-slug ((node org-roam-node))
-;;     (let ((title (org-roam-node-title node)))
-;;       (cl-flet* ((nonspacing-mark-p (char)
-;;                                     (memq char org-roam-slug-trim-chars))
-;;                  (strip-nonspacing-marks (s)
-;;                                          (ucs-normalize-NFC-string
-;;                                           (apply #'string (seq-remove #'nonspacing-mark-p
-;;                                                                       (ucs-normalize-NFD-string s)))))
-;;                  (cl-replace (title pair)
-;;                              (replace-regexp-in-string (car pair) (cdr pair) title)))
-;;         (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-")
-;;                         ("--*" . "-")
-;;                         ("^-" . "")
-;;                         ("-$" . "")))
-;;                (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
-;;           (downcase slug))))))
+(use-package!
+  :hook
+  (after-init . vulpea-setup))
 
-;; org-roam
-
-;; (use-package! org-roam
-;;   ;; :after org-mode
-;;   :init
-;;   (map! :leader
-;;         :prefix "n"
-;;         :desc "org-roam"                        "r" #'org-roam
-;;         :desc "org-roam-insert"                 "i" #'org-roam-insert
-;;         :desc "org-roam-switch-to-buffer"       "b" #'org-roam-switch-to-buffer
-;;         :desc "org-roam-find-file"              "f" #'org-roam-find-file
-;;         :desc "org-roam-show-graph"             "g" #'org-roam-show-graph
-;;         :desc "org-roam-insert"                 "i" #'org-roam-insert
-;;         :desc "org-roam-capture"                "c" #'org-roam-capture)
-;;   :custom
-;;   (org-roam-dailies-directory +org-journal-path)
-;;   (org-roam-dailies-capture-templates
-;;    '(("d" "default" entry
-;;       #'org-roam-capture--get-point
-;;       "* %?"
-;;       :file-name "~/Dropbox/org/notes/private/journal/%<%Y-%m-%d>"
-;;       :head "#+title: %<%Y-%m-%d>\n\n")))
-;;   (org-roam-directory +org-roam-path)
-;;   (org-roam-db-location +org-roam-db-path)
-;;   (org-roam-index-file "index.org")
-;;   (org-roam-file-extensions '("org" "txt"))
-;;   (org-roam-completion-system 'ivy)
-;;                                         ; Hide org-roam-buffer by default
-;;   (+org-roam-open-buffer-on-find-file nil)
-;;   (org-roam-capture-templates
-;;    '(("d" "personal (default)" plain (function org-roam--capture-get-point)
-;;       "%?"
-;;       :file-name "private/${slug}"
-;;       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n* Links\n** "
-;;       :unnarrowed t)
-;;      ("w" "work" plain (function org-roam--capture-get-point)
-;;       "%?"
-;;       :file-name "private/${slug}"
-;;       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"work\"\n\n"
-;;       :unnarrowed t)
-;;      ("t" "draft" plain (function org-roam--capture-get-point)
-;;       "%?"
-;;       :file-name "${slug}"
-;;       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"drafts\"\n\n"
-;;       :unnarrowed t)
-;;      ("p" "public" plain (function org-roam--capture-get-point)
-;;       "%?"
-;;       :file-name "${slug}"
-;;       :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"public\"\n\n"
-;;       :unnarrowed t)))
-;;   (org-roam-link-title-format "%s")
-;;   :config
-;;   (defun org-roam--title-to-slug (title)
-;;     "Convert title to a filename-suitable slug. Uses hyphens rather than underscores."
-;;     (cl-flet* ((nonspacing-mark-p (char)
-;;                                   (eq 'Mn (get-char-code-property char 'general-category)))
-;;                (strip-nonspacing-marks (s)
-;;                                        (apply #'string (seq-remove #'nonspacing-mark-p
-;;                                                                    (ucs-normalize-NFD-string s))))
-;;                (cl-replace (title pair)
-;;                            (replace-regexp-in-string (car pair) (cdr pair) title)))
-;;       (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-")  ;; convert anything not alphanumeric
-;;                       ("--*" . "-")  ;; remove sequential underscores
-;;                       ("^-" . "")  ;; remove starting underscore
-;;                       ("-$" . "")))  ;; remove ending underscore
-;;              (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
-;;         (s-downcase slug)))))
-
-;; org-roam org-export hook to add backlinks
-;; (defun my/org-roam--backlinks-list (file)
-;;   (if (org-roam--org-roam-file-p file)
-;;       (--reduce-from
-;;        (concat acc (format "- [[file:%s][%s]]\n"
-;;                            (file-relative-name (car it) +org-roam-path)
-;;                            (org-roam--get-title-or-slug (car it))))
-;;        "" (org-roam-db-query [:select [from] :from links :where (= to $s1)] file))
-;;     ""))
-
-;; (defun my/org-export-preprocessor (backend)
-;;   (let ((links (my/org-roam--backlinks-list (buffer-file-name))))
-;;     (unless (string= links "")
-;;       (save-excursion
-;;         (goto-char (point-max))
-;;         (insert (concat "\n* Links\n") links)))))
-
-;; (add-hook 'org-export-before-processing-hook 'my/org-export-preprocessor)
-
-;;; Custom Package Configuration
-
-;; org-download
-;; (use-package! org-download
-;;   :after org
-;;   :bind
-;;   (:map org-mode-map
-;;    (("s-Y" . org-download-screenshot)
-;;     ("s-y" . org-download-yank))))
-
-;; Clojure
-;; (map! :after cider
-;;       :localleader
-;;       (:map (clojure-mode-map clojurescript-mode-map)
-;;        :desc "cider-eval-sexp-at-point"
-;;        "e p" #'cider-eval-sexp-at-point))
+;; Common Lisp
+(after! sly
+  (setq sly-lisp-implementations
+        '((sbcl ("/usr/local/bin/sbcl" "-L" "sbcl" "-Q" "run") :coding-system utf-8-unix))))
 
 ;; anki-editor
 (use-package! anki-editor
