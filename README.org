@@ -1,9 +1,13 @@
 #+title: dotfiles
 #+author: "Yosevu Kilonzo"
 
-** chezmoi
-
-[[https://github.com/twpayne/chezmoi][GitHub - twpayne/chezmoi: Manage your dotfiles across multiple machines, securely.]]
+** Package Manager
+*** [[https://brew.sh/][Homebrew]]
+#+begin_src zsh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#+end_src
+** Home Manager
+*** [[https://github.com/twpayne/chezmoi][chezmoi]]
 
 ~dot~ is an alias for ~chezmoi~.
 
@@ -11,25 +15,46 @@
 - [[https://github.com/twpayne/chezmoi/blob/master/docs/HOWTO.md][How-To Guide]]
 - [[https://github.com/twpayne/chezmoi/blob/master/docs/REFERENCE.md][Reference Manual]]
 
-** Emacs
+**** Install
+#+begin_src zsh
+brew install chezmoi
+#+end_src
 
-"An extensible, customizable, free/libre text editor — and more."
+**** Apply
+#+begin_src zsh
+chezmoi init --apply --verbose https://github.com/yosevu/dotfiles.git
+#+end_src
 
-[[https://www.gnu.org/software/emacs/][GNU Emacs - GNU Project]]
+** Terminal
+*** [[https://iterm2.com/][iTerm2]]
+**** Setup
+1. Preferences > General > Preferences
+2. Check Load preferences from a custom folder or URL
+3. Browse, select $HOME and click open
 
-- Version: [[https://github.com/d12frosted/homebrew-emacs-plus][homebrew-emacs-plus]]
-- Framework: [[https://github.com/hlissner/doom-emacs][doom-emacs]]
+**** Themes
+- [[https://github.com/JonathanSpeek/palenight-iterm2][Palenight theme]]
 
-*** Packages
+** Shell
+*** [[https://www.zsh.org/][Zsh]]
+**** [[https://ohmyz.sh/][Oh My Zsh]]
+***** Plugins
+- [[https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md][zsh-autosuggestions]]
+- [[https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md][zsh-syntax-highlighting]]
 
-- [[https://github.com/org-roam/org-roam][org-roam]]
-
-** Zsh
-
-[[https://www.zsh.org/][Zsh]]
-
-- Framework: [[https://ohmyz.sh/][Oh My Zsh - a delightful & open source framework for Zsh]]
-
-** iTerm2
-
-[[https://iterm2.com/][iTerm2 - macOS Terminal Replacement]]
+** Text Editor
+*** [[https://www.gnu.org/software/emacs/][Emacs]]
+**** [[https://github.com/d12frosted/homebrew-emacs-plus][homebrew-emacs-plus]]
+***** Add repository
+#+begin_src zsh
+brew tap d12frosted/emacs-plus
+#+end_src
+***** Install
+#+begin_src zsh
+brew install emacs-plus --with-modern-doom3-icon
+#+end_src
+**** [[https://github.com/hlissner/doom-emacs][doom-emacs]]
+#+begin_src zsh
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
+#+end_src
