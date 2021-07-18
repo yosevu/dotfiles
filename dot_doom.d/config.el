@@ -80,6 +80,40 @@
 
 ;; UI
 
+;; Dashboard
+(use-package! dashboard
+  :init ; add config
+  (progn
+    (setq dashboard-items '(;(agenda . 5)
+                            (bookmarks .5)
+                            (projects . 5)
+                            (recents . 5)))
+                            ;(registers . 5)))
+    (setq dashboard-banner-logo-title nil)
+    (setq dashboard-startup-banner nil)
+    (setq dashboard-center-content t)
+    (setq dashboard-show-shortcuts t)
+    (setq dashboard-set-heading-icons t)
+    (setq dashboard-set-file-icons t)
+    (setq dashboard-set-init-info t)
+    (setq dashboard-footer-messages '(
+                                          "We like to say that we don't get to choose our parents, that they were given by chance--yet we can truly choose whose children we'd like to be. - Seneca"
+                                          "Man lives on one quarter of what he eats. On the other three quarters live his doctors. - Unknown"
+                                          "If you want everything to be familiar, you will never learn anything new because it can't be significantly different from what you already know - Rich Hickey"
+                                          "The best thing a human being can do is to help another human being know more. - Charlie Munger"
+                                          "In my whole life, I have known no wise people (over a broad subject matter area) who didn't read all the time — none, zero. - Charlie Munger"
+                                          "To be everywhere is to be nowhere. - Seneca"
+                                          "If you don't know where you're going, you might not get there - Yogi Berra"
+                                          "Substitute nuance for novelty - Angela Duckworth"
+                                          "If you want to test your memory, try to remember what you were worrying about one year ago today. - E. Joseph Cossman"
+                                          "Don't ask yourself what the world needs. Ask yourself what makes you come alive and then go do that. Because what the world needs is people who have come alive. - Howard Thurman"))
+    :config
+    (dashboard-setup-startup-hook)))
+
+(map! :leader
+      :desc "Go to dashboard."
+      "d" #'dashboard-refresh-buffer)
+
 ;; Vertical rule at 80 characters
 (add-hook! 'web-mode-hook  'display-fill-column-indicator-mode t)
 (add-hook! 'css-mode-hook  'display-fill-column-indicator-mode t)

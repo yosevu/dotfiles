@@ -23,6 +23,7 @@
 
 (package! poke-line)
 (package! anki-editor)
+(package! dashboard)
 ;; (package! night-owl)
 
 (unpin! org-roam company-org-roam)
