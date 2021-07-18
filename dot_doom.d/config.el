@@ -135,7 +135,6 @@
 ;; (require 'cider)
 ;; (require 'htmlize)
 
-;; (add-to-list 'org-modules 'org-habit t)
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
 (setq frame-title-format '("%b"))
