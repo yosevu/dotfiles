@@ -141,6 +141,7 @@
 
 (setq
  projectile-project-search-path '("~/projects/personal/" "~/projects/work/")
+ org-startup-folded t
  visual-line-mode t
  auto-fill-mode t
  web-mode-markup-indent-offset 2
