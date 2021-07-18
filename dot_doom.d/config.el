@@ -246,7 +246,11 @@
 (require 'time-stamp)
 (add-hook 'before-save-hook 'time-stamp)
 ;; (add-hook 'write-file-functions 'time-stamp) ; update when saving
+
 ;; org-roam-v2
+
+(setq org-roam-v2-ack t)
+
 (use-package! org-roam
   :after org
   :init
@@ -291,10 +295,6 @@
      :if-new (file+head "work/${slug}.org"
                         "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
      :unnarrowed t))))
-
-(use-package!
-  :hook
-  (after-init . vulpea-setup))
 
 ;; Common Lisp
 (after! sly

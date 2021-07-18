@@ -29,10 +29,9 @@
 (unpin! org-roam company-org-roam)
 
 (package! org-roam
-  :recipe (:host github :repo "org-roam/org-roam" :branch "v2")
-  :pin "c32b3fb16fd56556c7a36519f90c188857671947")
+  :recipe (:host github :repo "org-roam/org-roam" :branch "master")
+  :pin "7d9fcf528862d2dde76b1e8a6e804e4dfc4c3a74")
 
-(package! vulpea)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
