@@ -19,7 +19,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; Font and themes
-(setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'semi-light)
+(setq doom-font (font-spec :family "Fira Code" :size 14)
       doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
       doom-unicode-font (font-spec :family "Fira Sans" :size 14)
       doom-big-font (font-spec :family "Fira Mono" :size 18))
@@ -28,7 +28,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
-;; (setq doom-theme 'doom-solarized-light)
+(setq doom-theme 'doom-solarized-light)
 ;; (setq doom-theme 'doom-nord)
 ;; (setq doom-theme 'doom-nord-light)
 ;; (setq doom-theme 'doom-palenight)
