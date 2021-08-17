@@ -33,6 +33,10 @@
 ;; (setq doom-theme 'doom-nord-light)
 ;; (setq doom-theme 'doom-palenight)
 
+(setq auth-sources '("~/.authinfo"))
+
+(setq ghub-use-workaround-for-emacs-bug 'force)
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Dropbox/org/")
