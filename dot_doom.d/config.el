@@ -264,7 +264,7 @@
         :desc "org-roam" "l" #'org-roam-buffer-toggle
         :desc "org-roam-node-insert" "i" #'org-roam-node-insert
         :desc "org-roam-node-find" "f" #'org-roam-node-find
-        :desc "org-roam-ref-find" "r" #'org-roam-ref-find
+        :desc "org-roam-refile" "r" #'org-roam-refile
         :desc "org-roam-show-graph" "g" #'org-roam-show-graph
         :desc "org-roam-capture" "c" #'org-roam-capture)
   (setq org-roam-directory +org-roam-path)
@@ -300,6 +300,23 @@
      :if-new (file+head "work/${slug}.org"
                         "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
      :unnarrowed t))))
+
+;; (cl-defmethod org-roam-node-slug ((node org-roam-node))
+;;   (let ((title (org-roam-node-title node)))
+;;     (cl-flet* ((nonspacing-mark-p (char)
+;;                 (memq char org-roam-slug-trim-chars))
+;;                (strip-nonspacing-marks (s)
+;;                 (ucs-normalize-NFC-string
+;;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                					(apply #'string (seq-remove #'nonspacing-mark-p
+;;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    (ucs-normalize-NFD-string s)))))
+;;                (cl-replace (title pair)
+;;                  (replace-regexp-in-string (car pair) (cdr pair) title)))
+;;       (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-")
+;;                       ("--*" . "-")
+;;                       ("^-" . "")
+;;                       ("-$" . "")))
+;;              (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
+;;         (downcase slug)))))
 
 ;; Common Lisp
 (after! sly
