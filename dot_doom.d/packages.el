@@ -24,14 +24,21 @@
 (package! poke-line)
 (package! anki-editor)
 (package! dashboard)
-;; (package! night-owl)
+(package! lorem-ipsum)
+(package! night-owl-theme)
+(package! modus-themes)
+(package! almost-mono-themes)
+(package! paper-theme)
+(package! poet-theme)
 
 (unpin! org-roam company-org-roam)
 
-(package! org-roam
-  :recipe (:host github :repo "org-roam/org-roam" :branch "master")
-  :pin "7d9fcf528862d2dde76b1e8a6e804e4dfc4c3a74")
 
+;; (package! org-roam
+  ;; :recipe (:host github :repo "org-roam/org-roam" :branch "master")
+  ;; :pin "e9299297f9cc1aafda62deb8af7957dc8d56dc04")
+  ;; :pin "f819720c510185af713522c592833ec9f2934251")
+  ;; :pin "7d9fcf528862d2dde76b1e8a6e804e4dfc4c3a74")
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

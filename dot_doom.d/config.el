@@ -28,10 +28,17 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
-(setq doom-theme 'doom-solarized-light)
+;; (setq doom-theme 'doom-solarized-light)
 ;; (setq doom-theme 'doom-nord)
 ;; (setq doom-theme 'doom-nord-light)
+;; (setq doom-theme 'doom-spacegray)
+;; (setq doom-theme 'night-owl)
+;; (setq doom-theme 'elegant-emacs)
+;; (setq doom-theme 'modus-vivendi)
+;; (setq doom-theme 'modus-operandi)
+;; (setq doom-theme 'almost-mono-themes)
 ;; (setq doom-theme 'doom-palenight)
+(setq doom-theme 'paper)
 
 (setq auth-sources '("~/.authinfo"))
 
@@ -55,7 +62,7 @@
 ;;   `require' or `use-package'.
 ;; - `map!' for binding new keys
 ;;
-;; To get information about any of these functions/macros, move the cursor over
+; To get information about any of these functions/macros, move the cursor over
 ;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
 ;; This will open documentation for it, including demos of how they are used.
 ;;
@@ -80,7 +87,11 @@
  +org-journal-path "~/Dropbox/org/notes/private/journal/"
 
  ;; org-capture
- +org-capture-inbox-file "~/Dropbox/org/inbox.org")
+ +org-capture-inbox-file "~/Dropbox/org/inbox.org"
+ +org-capture-task-file "~/Dropbox/org/tasks.org"
+ +org-capture-work-file "~/Dropbox/org/work.org"
+ +org-capture-backlog-file "~/Dropbox/org/backlog.org"
+ +org-capture-project-file "~/Dropbox/org/projects.org")
 
 ;; UI
 
@@ -110,7 +121,9 @@
                                           "If you don't know where you're going, you might not get there - Yogi Berra"
                                           "Substitute nuance for novelty - Angela Duckworth"
                                           "If you want to test your memory, try to remember what you were worrying about one year ago today. - E. Joseph Cossman"
-                                          "Don't ask yourself what the world needs. Ask yourself what makes you come alive and then go do that. Because what the world needs is people who have come alive. - Howard Thurman"))
+                                          "Don't ask yourself what the world needs. Ask yourself what makes you come alive and then go do that. Because what the world needs is people who have come alive. - Howard Thurman"
+                                          "You can't replace reading with other sources of information like videos, because you need to read in order to write well, and you need to write in order to think well. - Paul Graham"
+                                          "The idea is to remain in a state of constant departure while always arriving. It saves on introductions and goodbyes. - Boat Car Guy, Waking Life"))
     :config
     (dashboard-setup-startup-hook)))
 
@@ -138,6 +151,45 @@
 ;; (require 'ob-js)
 ;; (require 'cider)
 ;; (require 'htmlize)
+
+;; (require 'org-gcal)
+
+;; (setq org-gcal-client-id "627676799732-ufuejd5or8hndgm8q77t4h4o6go86288.apps.googleusercontent.com"
+;;       org-gcal-client-secret "PSlBoBFlCnAbbPfM8UjxAfDv"
+;;       org-gcal-file-alist '(("yosevukgmail.com" .  "~/schedule.org")))
+
+;; (require 'calfw-ical)
+;; (cfw:open-ical-calendar "https://calendar.google.com/calendar/ical/yosevuk%40gmail.com/public/basic.ics")
+
+(setq org-log-note-clock-out t)
+(setq org-show-notification-handler 'message)
+
+(defun calendar-helper () ;; doesn't have to be interactive
+  (cfw:open-calendar-buffer
+   :contents-sources
+   (list
+    (cfw:org-create-source "Purple")
+    (cfw:ical-create-source "gcal" "https://calendar.google.com/calendar/ical/yosevuk%40gmail.com/public/basic.ics" "white"))))
+(defun calendar-init ()
+  ;; switch to existing calendar buffer if applicable
+  (if-let (win (cl-find-if (lambda (b) (string-match-p "^\\*cfw:" (buffer-name b)))
+                           (doom-visible-windows)
+                           :key #'window-buffer))
+      (select-window win)
+    (calendar-helper)))
+(defun =my-calendar ()
+  "Activate (or switch to) *my* `calendar' in its workspace."
+  (interactive)
+  (if (featurep! :ui workspaces) ;; create workspace (if enabled)
+      (progn
+        (+workspace-switch "Calendar" t)
+        (doom/switch-to-scratch-buffer)
+        (calendar-init)
+        (+workspace/display))
+    (setq +calendar--wconf (current-window-configuration))
+    (delete-other-windows)
+    (switch-to-buffer (doom-fallback-buffer))
+    (calendar-init)))
 
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
@@ -173,13 +225,21 @@
              ;; org-refile-targets (quote ((nil :maxlevel . 1)))
              ;; org-refile-use-outline-path 'file
              ;; org-outline-path-complete-in-steps nil
+             ;; (file+headline "~/org/gtd.org" "Tasks")
              org-capture-templates '(
-                                     ("t" "task" entry
-                                      (file +org-capture-inbox-file)
-                                      "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
                                      ("n" "note" entry
                                       (file +org-capture-inbox-file)
-                                      "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))
+                                      "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                                     ("t" "task" entry
+                                      (file +org-capture-task-file)
+                                      "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                                     ("w" "work" entry
+                                      (file +org-capture-work-file)
+                                      "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+                                     ("b" "backlog" entry
+                                      (file +org-capture-backlog-file)
+                                      "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))
+
              org-todo-keywords '((sequence "TODO(t)" "TODAY(a)" "NEXT(n)" "|" "DONE(d)" "NONE(x)")
                                  (sequence "WAIT(w@/!)" "HOLD (h@/!)" "|" "CANC(c@/!)" "MISS(m)" "SKIP(s)"))))
 
@@ -275,10 +335,10 @@
                   (window-width . 0.33)
                   (window-height . fit-window-to-buffer))))
  :config
-  ;; (setq org-roam-mode-sections
-  ;;       (list #'org-roam-backlinks-insert-section
-  ;;             #'org-roam-reflinks-insert-section
-  ;;             #'org-roam-unlinked-references-insert-section))
+  (setq org-roam-mode-sections-functions
+        (list #'org-roam-backlinks-insert-section
+              #'org-roam-reflinks-insert-section
+              #'org-roam-unlinked-references-insert-section))
  (org-roam-setup)
  (setq org-roam-capture-templates
   '(("d" "default" plain
@@ -317,6 +377,18 @@
 ;;                       ("-$" . "")))
 ;;              (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
 ;;         (downcase slug)))))
+
+
+;; org-clock in modeline
+;; (setq mode-line-format
+;;       (:propertize
+;;        (t org-mode-line-string)
+;;        face (:foreground "cyan" :weight 'bold)))
+
+;; (add-hook 'org-clock-out-hook
+;;           '(lambda ()
+;;              (setq org-mode-line-string nil)
+;;              (force-mode-line-update)))
 
 ;; Common Lisp
 (after! sly

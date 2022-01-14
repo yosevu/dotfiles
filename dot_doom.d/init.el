@@ -23,7 +23,8 @@
        company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
+       ;;ivy               ; a search engine for love and life
+       vertico             ; the search engine of the future
 
        :ui
        deft              ; notational velocity for Emacs
@@ -42,14 +43,14 @@
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
-       ;;tabs              ; a tab bar for Emacs
+       ;; tabs              ; a tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
-       ;;zen               ; distraction-free coding or writing
+       zen               ; distraction-free coding or writing
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -58,7 +59,7 @@
        ;;(format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
-       ;;multiple-cursors  ; editing in many places at once
+       multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        (parinfer +rust)          ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
@@ -131,7 +132,7 @@
        ;;(go +lsp)         ; the hipster dialect
        ;;(haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
-       ;;idris             ; a language you can depend on
+       idris             ; a language you can depend on
        (json +lsp)              ; At least it ain't XML
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
        (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
@@ -152,7 +153,7 @@
         +pomodoro
         +present
         +pretty)               ; organize your plain life in plain text
-       ;;(php +lsp)               ; perl's insecure younger brother
+       php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        ;;python            ; beautiful is better than ugly
@@ -164,7 +165,7 @@
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
-       scheme            ; a fully conniving family of lisps
+       (scheme +guile)            ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
@@ -173,13 +174,13 @@
        web               ; the tubes
        yaml              ; JSON, but readable
 
-       :email
-       (mu4e +gmail)
+       ;; :email
+       ;; (mu4e +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
 
        :app
-       ;;calendar
+       calendar
        irc               ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
