@@ -1,0 +1,5 @@
+(("default" . ((user-emacs-directory . "~/doom-emacs")
+               (env . (("DOOMDIR" . "~/.doom.d")))))
+ ("backup" . ((user-emacs-directory . "~/doom-emacs")
+              (env . (("DOOMDIR" . "~/.doom.backup")))))
+ ("emacs" . ((user-emacs-directory . "~/.emacs.default"))))
