@@ -22,14 +22,15 @@
 ;;    :files ("chrome.el")))
 
 (package! poke-line)
-(package! anki-editor)
-(package! dashboard)
-(package! lorem-ipsum)
+;;(package! anki-editor)
+;;(package! dashboard)
+;;(package! lorem-ipsum)
 (package! night-owl-theme)
 (package! modus-themes)
 (package! almost-mono-themes)
 (package! paper-theme)
 (package! poet-theme)
+(package! dash-at-point)
 
 (unpin! org-roam company-org-roam)
 
