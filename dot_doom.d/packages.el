@@ -34,7 +34,6 @@
 
 (unpin! org-roam company-org-roam)
 
-
 ;; (package! org-roam
   ;; :recipe (:host github :repo "org-roam/org-roam" :branch "master")
   ;; :pin "e9299297f9cc1aafda62deb8af7957dc8d56dc04")

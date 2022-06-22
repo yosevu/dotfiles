@@ -2,8 +2,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-;; (setq user-full-name ""
-;; user-mail-address "")
+(setq user-full-name "Yosevu Kilonzo"
+user-mail-address "yosevu@yosevu.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -46,7 +46,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dropbox/org/")
+(setq org-directory "~/Dropbox/notes/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -80,56 +80,18 @@
 ;; Variables
 (setq
  ;; File and directory paths
- +org-path "~/Dropbox/org/"
- +org-roam-path "~/Dropbox/org/notes/"
- +org-roam-db-path "~/.emacs.d/org-roam.db"
- +org-roam-private-path "~/Dropbox/org/notes/private/"
- +org-journal-path "~/Dropbox/org/notes/private/journal/"
+ +org-path "~/Dropbox/notes/org/"
+ +org-roam-path "~/Dropbox/notes/org/notes/"
+ +org-roam-db-path "~/.emacs/doom/org-roam.db"
+ +org-roam-private-path "~/Dropbox/notes/org/notes/private/"
+ +org-journal-path "~/Dropbox/notes/org/notes/private/journal/"
 
  ;; org-capture
- +org-capture-inbox-file "~/Dropbox/org/inbox.org"
- +org-capture-task-file "~/Dropbox/org/tasks.org"
- +org-capture-work-file "~/Dropbox/org/work.org"
- +org-capture-backlog-file "~/Dropbox/org/backlog.org"
- +org-capture-project-file "~/Dropbox/org/projects.org")
-
-;; UI
-
-;; Dashboard
-;; (use-package! dashboard
-;;   :init ; add config
-;;   (progn
-;;     (setq dashboard-items '(;(agenda . 5)
-;;                             (bookmarks .5)
-;;                             (projects . 5)
-;;                             (recents . 5)))
-;;                             ;(registers . 5)))
-;;     (setq dashboard-banner-logo-title nil)
-;;     (setq dashboard-startup-banner nil)
-;;     (setq dashboard-center-content t)
-;;     (setq dashboard-show-shortcuts t)
-;;     (setq dashboard-set-heading-icons t)
-;;     (setq dashboard-set-file-icons t)
-;;     (setq dashboard-set-init-info t)
-;;     (setq dashboard-footer-messages '(
-;;                                           "We like to say that we don't get to choose our parents, that they were given by chance--yet we can truly choose whose children we'd like to be. - Seneca"
-;;                                           "Man lives on one quarter of what he eats. On the other three quarters live his doctors. - Unknown"
-;;                                           "If you want everything to be familiar, you will never learn anything new because it can't be significantly different from what you already know - Rich Hickey"
-;;                                           "The best thing a human being can do is to help another human being know more. - Charlie Munger"
-;;                                           "In my whole life, I have known no wise people (over a broad subject matter area) who didn't read all the time — none, zero. - Charlie Munger"
-;;                                           "To be everywhere is to be nowhere. - Seneca"
-;;                                           "If you don't know where you're going, you might not get there - Yogi Berra"
-;;                                           "Substitute nuance for novelty - Angela Duckworth"
-;;                                           "If you want to test your memory, try to remember what you were worrying about one year ago today. - E. Joseph Cossman"
-;;                                           "Don't ask yourself what the world needs. Ask yourself what makes you come alive and then go do that. Because what the world needs is people who have come alive. - Howard Thurman"
-;;                                           "You can't replace reading with other sources of information like videos, because you need to read in order to write well, and you need to write in order to think well. - Paul Graham"
-;;                                           "The idea is to remain in a state of constant departure while always arriving. It saves on introductions and goodbyes. - Boat Car Guy, Waking Life"))
-;;     :config
-;;     (dashboard-setup-startup-hook)))
-
-(map! :leader
-      :desc "Go to dashboard."
-      "d" #'dashboard-refresh-buffer)
+ +org-capture-inbox-file "~/Dropbox/notes/org/inbox.org"
+ +org-capture-task-file "~/Dropbox/notes/org/tasks.org"
+ +org-capture-work-file "~/Dropbox/notes/org/work.org"
+ +org-capture-backlog-file "~/Dropbox/notes/org/backlog.org"
+ +org-capture-project-file "~/Dropbox/notes/org/projects.org")
 
 ;; Vertical rule at 80 characters
 (add-hook! 'web-mode-hook  'display-fill-column-indicator-mode t)
@@ -147,49 +109,8 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 ;;; Org-mode
-;; (require 'ob-clojure)
-;; (require 'ob-js)
-;; (require 'cider)
-;; (require 'htmlize)
-
-;; (require 'org-gcal)
-
-;; (setq org-gcal-client-id "627676799732-ufuejd5or8hndgm8q77t4h4o6go86288.apps.googleusercontent.com"
-;;       org-gcal-client-secret "PSlBoBFlCnAbbPfM8UjxAfDv"
-;;       org-gcal-file-alist '(("yosevukgmail.com" .  "~/schedule.org")))
-
-;; (require 'calfw-ical)
-;; (cfw:open-ical-calendar "https://calendar.google.com/calendar/ical/yosevuk%40gmail.com/public/basic.ics")
-
 (setq org-log-note-clock-out t)
 (setq org-show-notification-handler 'message)
-
-(defun calendar-helper () ;; doesn't have to be interactive
-  (cfw:open-calendar-buffer
-   :contents-sources
-   (list
-    (cfw:org-create-source "Purple")
-    (cfw:ical-create-source "gcal" "https://calendar.google.com/calendar/ical/yosevuk%40gmail.com/public/basic.ics" "white"))))
-(defun calendar-init ()
-  ;; switch to existing calendar buffer if applicable
-  (if-let (win (cl-find-if (lambda (b) (string-match-p "^\\*cfw:" (buffer-name b)))
-                           (doom-visible-windows)
-                           :key #'window-buffer))
-      (select-window win)
-    (calendar-helper)))
-(defun =my-calendar ()
-  "Activate (or switch to) *my* `calendar' in its workspace."
-  (interactive)
-  (if (featurep! :ui workspaces) ;; create workspace (if enabled)
-      (progn
-        (+workspace-switch "Calendar" t)
-        (doom/switch-to-scratch-buffer)
-        (calendar-init)
-        (+workspace/display))
-    (setq +calendar--wconf (current-window-configuration))
-    (delete-other-windows)
-    (switch-to-buffer (doom-fallback-buffer))
-    (calendar-init)))
 
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
@@ -197,6 +118,7 @@
 
 (setq
  projectile-project-search-path '("~/projects/personal/" "~/projects/work/")
+ projectile-enable-caching t
  org-startup-folded t
  visual-line-mode t
  auto-fill-mode t
@@ -273,39 +195,6 @@
   (org-journal-time-format "")
   (org-journal-time-prefix ""))
 
-;; org-agenda-skip-scheduled-if-done t)
-
-;; org-super-agenda
-;; (use-package! org-super-agenda
-;;   :after org-agenda
-;;   :init
-;;   (setq org-super-agenda-groups
-;;         '((:name "Habits"
-;;            :habit t)
-;;           (:name "Priority"
-;;            :tag "priority"
-;;            :order 1)
-;;           (:name "Projects"
-;;            :tag "Projects"
-;;            :order 2)
-;;           (:name "Learning"
-;;            :tag ("learning" "reading"))
-;;           (:name "Programming"
-;;            :tag "programming")
-;;           (:name "PKM"
-;;            :tag "pkm")
-;;           (:name "Tools"
-;;            :tag "tools")
-;;           (:name "Integral"
-;;            :tag "integral")
-;;           (:name "Work"
-;;            :tag "work")
-;;           (:name "Chores"
-;;            :tag "chores"
-;;            :order 8)))
-;;   :config
-;;   (org-super-agenda-mode))
-
 ;; timestamp on save - requires :head "#+TITLE: ${title}\nTime-stamp: <>\n"
 
 (require 'time-stamp)
@@ -359,54 +248,34 @@
                         "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
      :unnarrowed t))))
 
-;; (cl-defmethod org-roam-node-slug ((node org-roam-node))
-;;   (let ((title (org-roam-node-title node)))
-;;     (cl-flet* ((nonspacing-mark-p (char)
-;;                 (memq char org-roam-slug-trim-chars))
-;;                (strip-nonspacing-marks (s)
-;;                 (ucs-normalize-NFC-string
-;;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                					(apply #'string (seq-remove #'nonspacing-mark-p
-;;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    (ucs-normalize-NFD-string s)))))
-;;                (cl-replace (title pair)
-;;                  (replace-regexp-in-string (car pair) (cdr pair) title)))
-;;       (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-")
-;;                       ("--*" . "-")
-;;                       ("^-" . "")
-;;                       ("-$" . "")))
-;;              (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
-;;         (downcase slug)))))
 
+(use-package! flycheck
+  :config
+  (flycheck-add-mode 'javascript-eslint 'web-mode))
 
-;; org-clock in modeline
-;; (setq mode-line-format
-;;       (:propertize
-;;        (t org-mode-line-string)
-;;        face (:foreground "cyan" :weight 'bold)))
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
 
-;; (add-hook 'org-clock-out-hook
-;;           '(lambda ()
-;;              (setq org-mode-line-string nil)
-;;              (force-mode-line-update)))
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
 
-;; Common Lisp
-(after! sly
-  (setq sly-lisp-implementations
-        '((sbcl ("/usr/local/bin/sbcl" "-L" "sbcl" "-Q" "run") :coding-system utf-8-unix))))
+;; formats the buffer before saving
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;; anki-editor
 (use-package! anki-editor
   :commands (anki-editor-mode))
-
-;; deft
-(use-package! deft
-  :after org
-  :bind
-  ("C-c n d" . deft)
-  :custom
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory +org-roam-path))
 
 ;; poke-line
 (use-package! poke-line
@@ -416,10 +285,11 @@
   (poke-line-set-random-pokemon))
 
 ;;; Miscellaneous
+(after! org-pomodoro
+  (setq org-pomodoro-start-sound-p  t
+        org-pomodoro-start-sound    "~/Dropbox/org/sounds/bell.mp3"
+        org-pomodoro-finished-sound "~/Dropbox/org/sounds/bell.mp3"))
 
 ;; Suppress cl warning
 (setq byte-compile-warnings '(cl-functions));;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Temporary
-(add-to-list 'auto-mode-alist '("\\.module\\'" . php-mode))
-(add-to-list 'auto-mode-alist '("\\.theme\\'" . php-mode))
