@@ -1,7 +1,4 @@
 
-
-
-
 # fix
 # feat
 # build
@@ -12,6 +9,7 @@
 # refactor
 # perf
 # test
+# wip: work in progress, an incremental update, but not a complete feature
 #
 # Examples
 #
