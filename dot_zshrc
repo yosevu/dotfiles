@@ -178,3 +178,8 @@ fi
 # Elixir
 export PATH=$PATH:$HOME/.elixir-ls/release
 
+
+[ -f "/Users/yosevu/.ghcup/env" ] && source "/Users/yosevu/.ghcup/env" # ghcup-env
+
+[[layers]]
+  name = "denite"
