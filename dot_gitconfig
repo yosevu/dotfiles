@@ -1,0 +1,16 @@
+[user]
+	name = Yosevu Kilonzo
+	email = yosevuk@gmail.com
+	signingkey = 70F6216A
+[core]
+	editor = vim
+[commit]
+	gpgsign = true
+	template = /Users/yosevu/git-commit-template.txt
+[pull]
+	rebase = true
+	ff = only
+[github]
+	user = yosevu
+[init]
+	defaultBranch = main
