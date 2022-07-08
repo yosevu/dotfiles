@@ -181,5 +181,5 @@ export PATH=$PATH:$HOME/.elixir-ls/release
 
 [ -f "/Users/yosevu/.ghcup/env" ] && source "/Users/yosevu/.ghcup/env" # ghcup-env
 
-[[layers]]
-  name = "denite"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
