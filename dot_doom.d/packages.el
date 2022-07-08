@@ -7,20 +7,9 @@
 
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
-;(package! some-package)
-;; (package! jq-mode)
-;; (package! org-download)
-;; (package! org-super-agenda)
-(package! org-web-tools)
-;; (package! osa :recipe
-;;   (:host github
-;;    :repo "atomontage/osa"
-;;    :files (:defaults ("scripts" "scripts/*.js" "scripts/*.applescript"))))
-;; (package! chrome :recipe
-;;   (:host github
-;;    :repo "anticomputer/chrome.el"
-;;    :files ("chrome.el")))
+;; (package! some-package)
 
+(package! org-web-tools)
 (package! poke-line)
 ;;(package! anki-editor)
 ;;(package! dashboard)
@@ -34,11 +23,9 @@
 
 (unpin! org-roam company-org-roam)
 
-;; (package! org-roam
-  ;; :recipe (:host github :repo "org-roam/org-roam" :branch "master")
-  ;; :pin "e9299297f9cc1aafda62deb8af7957dc8d56dc04")
-  ;; :pin "f819720c510185af713522c592833ec9f2934251")
-  ;; :pin "7d9fcf528862d2dde76b1e8a6e804e4dfc4c3a74")
+(package! org-roam
+  :recipe (:host github :repo "org-roam/org-roam" :branch "main")
+  :pin "c3867619147175faf89ed8f3e90a1e67a4fd9655")
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

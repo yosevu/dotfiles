@@ -3,7 +3,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Yosevu Kilonzo"
-user-mail-address "yosevu@yosevu.com")
+      user-mail-address "yosevu@yosevu.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -28,7 +28,7 @@ user-mail-address "yosevu@yosevu.com")
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
-;; (setq doom-theme 'doom-solarized-light)
+(setq doom-theme 'doom-solarized-light)
 ;; (setq doom-theme 'doom-nord)
 ;; (setq doom-theme 'doom-nord-light)
 ;; (setq doom-theme 'doom-spacegray)
@@ -37,16 +37,32 @@ user-mail-address "yosevu@yosevu.com")
 ;; (setq doom-theme 'modus-vivendi)
 ;; (setq doom-theme 'modus-operandi)
 ;; (setq doom-theme 'almost-mono-themes)
-(setq doom-theme 'doom-palenight)
+;; (setq doom-theme 'doom-palenight)
 ;; (setq doom-theme 'paper)
 
 (setq auth-sources '("~/.authinfo"))
 
 (setq ghub-use-workaround-for-emacs-bug 'force)
 
+;; Variables
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dropbox/notes/org/")
+(setq
+ ;; File and directory paths
+ +org-path "~/Dropbox/notes/org/notes/"
+ +org-roam-path "~/Dropbox/notes/org/notes/"
+ +org-journal-path "~/Dropbox/notes/org/journal/"
+ ;; +org-roam-db-file "~/.emacs/doom-emacs/org-roam.db"
+ +org-roam-db-file "~/Dropbox/notes/org/org-roam.db"
+
+ ;; org-capture
+ +org-capture-inbox-file "~/Dropbox/notes/org/inbox.org"
+ +org-capture-task-file "~/Dropbox/notes/org/tasks/tasks.org"
+ +org-capture-work-file "~/Dropbox/notes/org/tasks/work.org"
+ +org-capture-backlog-file "~/Dropbox/notes/org/tasks/backlog.org"
+ +org-capture-project-file "~/Dropbox/notes/org/tasks/projects.org")
+
+(setq org-directory +org-path)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -77,21 +93,6 @@ user-mail-address "yosevu@yosevu.com")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; Variables
-(setq
- ;; File and directory paths
- +org-path "~/Dropbox/notes/org/"
- +org-roam-path "~/Dropbox/notes/org/notes/"
- +org-roam-db-path "~/.emacs/doom/org-roam.db"
- +org-roam-private-path "~/Dropbox/notes/org/notes/private/"
- +org-journal-path "~/Dropbox/notes/org/notes/private/journal/"
-
- ;; org-capture
- +org-capture-inbox-file "~/Dropbox/notes/org/inbox.org"
- +org-capture-task-file "~/Dropbox/notes/org/tasks.org"
- +org-capture-work-file "~/Dropbox/notes/org/work.org"
- +org-capture-backlog-file "~/Dropbox/notes/org/backlog.org"
- +org-capture-project-file "~/Dropbox/notes/org/projects.org")
 
 ;; Vertical rule at 80 characters
 (add-hook! 'web-mode-hook  'display-fill-column-indicator-mode t)
@@ -115,6 +116,9 @@ user-mail-address "yosevu@yosevu.com")
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
 (setq frame-title-format '("%b"))
+
+;; Editor
+(setq evil-multiedit-default-keybinds t)
 
 (setq
  projectile-project-search-path '("~/projects/personal/" "~/projects/work/")
@@ -189,7 +193,7 @@ user-mail-address "yosevu@yosevu.com")
   (org-journal-dir +org-journal-path)
   (org-journal-file-format "%Y-%m-%d.org")
   (org-journal-file-type 'yearly)
-  (org-journal-file-header "#+title: %Y Journal\n#+created: %Y-%m-%d\n#+filetags: \"journal\"\n\n\n")
+  (org-journal-file-header "#+title: %Y Journal\n#+created: %Y-%m-%d\n#+filetags:\n\n\n")
   (org-journal-date-format "[%Y-%m-%d %a %R] - Week %V")
   (org-journal-date-prefix "* ")
   (org-journal-time-format "")
@@ -215,39 +219,45 @@ user-mail-address "yosevu@yosevu.com")
         :desc "org-roam-show-graph" "g" #'org-roam-show-graph
         :desc "org-roam-capture" "c" #'org-roam-capture)
   (setq org-roam-directory +org-roam-path)
+  (setq org-roam-db-location +org-roam-db-file)
   (add-to-list 'display-buffer-alist
-               '(("\\*org-roam\\*"
-                  (display-buffer-in-direction)
-                  (direction . right)
-                  (window-width . 0.33)
-                  (window-height . fit-window-to-buffer))))
- :config
+                 '(("\\*org-roam\\*"
+                    (display-buffer-in-direction)
+                    (direction . right)
+                    (window-width . 0.33)
+                    (window-height . fit-window-to-buffer))))
+  :config
+  (org-roam-db-autosync-mode)
+  (setq org-roam-node-display-template
+      (concat "${title:*} "
+              (propertize "${tags:10}" 'face 'org-tag)))
+  ;; disable open buffer on find file - doom-emacs var
+  ;; (setq +org-roam-open-buffer-on-find-file nil)
   (setq org-roam-mode-sections-functions
         (list #'org-roam-backlinks-insert-section
-              #'org-roam-reflinks-insert-section
-              #'org-roam-unlinked-references-insert-section))
- (org-roam-setup)
- (setq org-roam-capture-templates
-  '(("d" "default" plain
-     "%?"
-     ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n* Links\n** "
-     :if-new (file+head "private/${slug}.org"
-                        "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+updated: Time-stamp: \" \"")
-     :immediate-finish t
-     :unnarrowed t)
-    ("p" "public" plain
-     "%?"
-     ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"public\"\n\n"
-     :if-new (file+head "${slug}.org"
-                        "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
-     :unnarrowed t)
-    ("w" "work" plain
-     "%?"
-     ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"work\"\n\n"
-     :if-new (file+head "work/${slug}.org"
-                        "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
-     :unnarrowed t))))
-
+             #'org-roam-reflinks-insert-section
+             #'org-roam-unlinked-references-insert-section)))
+  ;; TODO: Updte capture templates
+  ;; (setq org-roam-capture-templates
+  ;;    '(("d" "default" plain
+  ;;       "%?"
+  ;;       ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n* Links\n** "
+  ;;       :if-new (file+head "personal/${slug}.org"
+  ;;                          "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+updated: Time-stamp: \" \"")
+  ;;       :immediate-finish t
+  ;;       :unnarrowed t)
+  ;;      ("p" "public" plain
+  ;;       "%?"
+  ;;       ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"public\"\n\n"
+  ;;       :if-new (file+head "${slug}.org"
+  ;;                          "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
+  ;;       :unnarrowed t)
+  ;;      ("w" "work" plain
+  ;;       "%?"
+  ;;       ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"work\"\n\n"
+  ;;       :if-new (file+head "work/${slug}.org"
+  ;;                          "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
+  ;;       :unnarrowed t))))
 
 (use-package! flycheck
   :config
