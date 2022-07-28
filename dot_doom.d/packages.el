@@ -20,12 +20,19 @@
 (package! paper-theme)
 (package! poet-theme)
 (package! dash-at-point)
+(package! org-roam-ui)
 
 (unpin! org-roam company-org-roam)
 
 (package! org-roam
   :recipe (:host github :repo "org-roam/org-roam" :branch "main")
   :pin "c3867619147175faf89ed8f3e90a1e67a4fd9655")
+
+(package! dired+
+  :recipe (:host github :repo "emacsmirror/dired-plus"))
+
+(package! bookmark+
+  :recipe (:host github :repo "emacsmirror/bookmark-plus"))
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

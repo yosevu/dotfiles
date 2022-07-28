@@ -28,7 +28,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
-(setq doom-theme 'doom-solarized-light)
+;; (setq doom-theme 'doom-solarized-light)
 ;; (setq doom-theme 'doom-nord)
 ;; (setq doom-theme 'doom-nord-light)
 ;; (setq doom-theme 'doom-spacegray)
@@ -37,8 +37,8 @@
 ;; (setq doom-theme 'modus-vivendi)
 ;; (setq doom-theme 'modus-operandi)
 ;; (setq doom-theme 'almost-mono-themes)
-;; (setq doom-theme 'doom-palenight)
 ;; (setq doom-theme 'paper)
+(setq doom-theme 'doom-palenight)
 
 (setq auth-sources '("~/.authinfo"))
 
@@ -49,10 +49,10 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq
  ;; File and directory paths
- +org-path "~/Dropbox/notes/org/notes/"
+ ;; +org-path "~/Dropbox/notes/org/notes/"
+ +org-path "~/Dropbox/notes/org/"
  +org-roam-path "~/Dropbox/notes/org/notes/"
  +org-journal-path "~/Dropbox/notes/org/journal/"
- ;; +org-roam-db-file "~/.emacs/doom-emacs/org-roam.db"
  +org-roam-db-file "~/Dropbox/notes/org/org-roam.db"
 
  ;; org-capture
@@ -95,10 +95,10 @@
 
 
 ;; Vertical rule at 80 characters
-(add-hook! 'web-mode-hook  'display-fill-column-indicator-mode t)
-(add-hook! 'css-mode-hook  'display-fill-column-indicator-mode t)
-(add-hook! 'js-mode-hook   'display-fill-column-indicator-mode t)
-(add-hook! 'typescript-mode-hook   'display-fill-column-indicator-mode t)
+(add-hook! 'web-mode-hook 'display-fill-column-indicator-mode t)
+(add-hook! 'js-mode-hook 'display-fill-column-indicator-mode t)
+(add-hook! 'typescript-mode-hook 'display-fill-column-indicator-mode t)
+(add-hook! 'css-mode-hook 'display-fill-column-indicator-mode t)
 (add-hook! 'scss-mode-hook 'display-fill-column-indicator-mode t)
 
 ;; Set initial frame size and position
@@ -126,48 +126,48 @@
  org-startup-folded t
  visual-line-mode t
  auto-fill-mode t
- web-mode-markup-indent-offset 2
- web-mode-code-indent-offset 2
- web-mode-css-indent-offset 2
+ ;; web-mode-markup-indent-offset 2
+ ;; web-mode-code-indent-offset 2
+ ;; web-mode-css-indent-offset 2
  js-indent-level 2
  json-reformat:indent-width 2
  prettier-js-args '("--single-quote")
  dired-dwim-target t ; http://ergoemacs.org/emacs/emacs_dired_tips.html
  css-indent-offset 2)
 
-(after! org (setq
-             org-ellipsis " ▼ "
-             org-log-done 'time ; Insert a timestamp after the headline when a task is marked done.
-             org-log-into-drawer t
-             org-treat-insert-todo-heading-as-state-change t
-             ;; org-babel-clojure-backend 'cider
-             org-bullets-bullet-list '("·")
-             org-tags-column -80
-             org-log-done 'time
-             org-refile-targets (quote (("external-links.org" :maxlevel . 1)))
-             ;; org-refile-use-outline-path t
-             ;; org-refile-use-outline-path 'buffer-name
-             ;; org-refile-use-outline-path 'file
-             ;; org-refile-targets (quote ((nil :maxlevel . 1)))
-             ;; org-refile-use-outline-path 'file
-             ;; org-outline-path-complete-in-steps nil
-             ;; (file+headline "~/org/gtd.org" "Tasks")
-             org-capture-templates '(
-                                     ("n" "note" entry
-                                      (file +org-capture-inbox-file)
-                                      "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                                     ("t" "task" entry
-                                      (file +org-capture-task-file)
-                                      "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                                     ("w" "work" entry
-                                      (file +org-capture-work-file)
-                                      "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-                                     ("b" "backlog" entry
-                                      (file +org-capture-backlog-file)
-                                      "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))
+(after! org (setq)
+            org-ellipsis " ▼ "
+            org-log-done 'time ; Insert a timestamp after the headline when a task is marked done.
+            org-log-into-drawer t
+            org-treat-insert-todo-heading-as-state-change t
+            ;; org-babel-clojure-backend 'cider
+            ;; org-bullets-bullet-list '("·")
+            org-tags-column -80
+            org-log-done 'time
+            org-refile-targets (quote (("external-links.org" :maxlevel . 1)))
+            ;; org-refile-use-outline-path t
+            ;; org-refile-use-outline-path 'buffer-name
+            ;; org-refile-use-outline-path 'file
+            ;; org-refile-targets (quote ((nil :maxlevel . 1)))
+            ;; org-refile-use-outline-path 'file
+            ;; org-outline-path-complete-in-steps nil
+            org-capture-templates
+            '(
+              ("n" "note" entry
+               (file +org-capture-inbox-file)
+               "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+              ("t" "task" entry
+               (file +org-capture-task-file)
+               "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+              ("w" "work" entry
+               (file +org-capture-work-file)
+               "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+              ("b" "backlog" entry
+               (file +org-capture-backlog-file)
+               "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))
 
-             org-todo-keywords '((sequence "TODO(t)" "TODAY(a)" "NEXT(n)" "|" "DONE(d)" "NONE(x)")
-                                 (sequence "WAIT(w@/!)" "HOLD (h@/!)" "|" "CANC(c@/!)" "MISS(m)" "SKIP(s)"))))
+            org-todo-keywords '((sequence "TODO(t)" "TODAY(a)" "NEXT(n)" "|" "DONE(d)" "NONE(x)")
+                                (sequence "WAIT(w@/!)" "HOLD (h@/!)" "|" "CANC(c@/!)" "MISS(m)" "SKIP(s)")))
 
 (after! org
  (defun yosevu/org-archive-done-tasks ()
@@ -235,29 +235,41 @@
   ;; (setq +org-roam-open-buffer-on-find-file nil)
   (setq org-roam-mode-sections-functions
         (list #'org-roam-backlinks-insert-section
-             #'org-roam-reflinks-insert-section
-             #'org-roam-unlinked-references-insert-section)))
-  ;; TODO: Updte capture templates
-  ;; (setq org-roam-capture-templates
-  ;;    '(("d" "default" plain
-  ;;       "%?"
-  ;;       ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"personal\"\n\n* Links\n** "
-  ;;       :if-new (file+head "personal/${slug}.org"
-  ;;                          "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+updated: Time-stamp: \" \"")
-  ;;       :immediate-finish t
-  ;;       :unnarrowed t)
-  ;;      ("p" "public" plain
-  ;;       "%?"
-  ;;       ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"public\"\n\n"
-  ;;       :if-new (file+head "${slug}.org"
-  ;;                          "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
-  ;;       :unnarrowed t)
-  ;;      ("w" "work" plain
-  ;;       "%?"
-  ;;       ;; :head "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+roam_alias:\n#+roam_tags: \"private\" \"work\"\n\n"
-  ;;       :if-new (file+head "work/${slug}.org"
-  ;;                          "#+title: ${title}\n#+created: %<%Y-%m-%d>\n")
-  ;;       :unnarrowed t))))
+              #'org-roam-reflinks-insert-section
+              #'org-roam-unlinked-references-insert-section))
+
+  (setq org-roam-capture-templates
+     '(("d" "default" plain
+        "%?"
+        :target (file+head "${slug}.org"
+                           "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+updated: Time-stamp: \" \"\n\n")
+        :immediate-finish t
+        :unnarrowed t)
+       ("p" "public" plain
+        "%?"
+        :target (file+head "${slug}.org"
+                           "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+filetags: :drafts:\n\n")
+        :unnarrowed t)
+       ("w" "work" plain
+        "%?"
+        :target (file+head "${slug}.org"
+                           "#+title: ${title}\n#+created: %<%Y-%m-%d>\n\n")
+        :unnarrowed t))))
+
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
 
 (use-package! flycheck
   :config
@@ -274,6 +286,9 @@
   ;; install it separately via package-install
   ;; `M-x package-install [ret] company`
   (company-mode +1))
+
+(after! lsp-rust
+  (setq lsp-rust-server 'rust-analyzer))
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
@@ -300,6 +315,11 @@
         org-pomodoro-start-sound    "~/Dropbox/org/sounds/bell.mp3"
         org-pomodoro-finished-sound "~/Dropbox/org/sounds/bell.mp3"))
 
+(require 'dired+)
+(require 'bookmark+)
+
+;; Disable rainbow-mode to prevent bug where CSS custom property names are highlighted
+(remove-hook 'css-mode-hook #'rainbow-mode)
+
 ;; Suppress cl warning
 (setq byte-compile-warnings '(cl-functions));;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
