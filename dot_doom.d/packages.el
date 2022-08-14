@@ -34,6 +34,8 @@
 (package! bookmark+
   :recipe (:host github :repo "emacsmirror/bookmark-plus"))
 
+;; Fix https://github.com/doomemacs/doomemacs/issues/6583
+(package! compat :pin "cc1924fd8b3f9b75b26bf93f084ea938c06f9615")
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/raxod502/straight.el#the-recipe-format

@@ -56,8 +56,8 @@
        (evil +everywhere); come to the dark side, we have cookies
        ;; file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       ;; (format +onsave)  ; automated prettiness
-       format
+       (format +onsave)  ; automated prettiness
+       ;; format
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        multiple-cursors  ; editing in many places at once
@@ -96,7 +96,7 @@
        ;; gist              ; interacting with github gists
        (lookup +docsets +dictionary)              ; navigate your code and its documentation
        (lsp +peek)
-       (magit +forge)             ; a git porcelain for Emacs
+       magit             ; a git porcelain for Emacs
        ;; make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        ;;pdf               ; pdf enhancements
@@ -149,7 +149,7 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org
-        ;;+dragndrop
+        +dragndrop
         ;;+hugo
         +journal
         ;;+pomodoro
@@ -174,7 +174,7 @@
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
        web               ; the tubes
-       ;;yaml              ; JSON, but readable
+       yaml              ; JSON, but readable
 
        ;;:email
        ;;(mu4e +gmail)

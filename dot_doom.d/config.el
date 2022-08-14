@@ -49,8 +49,8 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq
  ;; File and directory paths
- ;; +org-path "~/Dropbox/notes/org/notes/"
  +org-path "~/Dropbox/notes/org/"
+ +org-agenda-path "~/Dropbox/notes/org/tasks/"
  +org-roam-path "~/Dropbox/notes/org/notes/"
  +org-journal-path "~/Dropbox/notes/org/journal/"
  +org-roam-db-file "~/Dropbox/notes/org/org-roam.db"
@@ -93,7 +93,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-
 ;; Vertical rule at 80 characters
 (add-hook! 'web-mode-hook 'display-fill-column-indicator-mode t)
 (add-hook! 'js-mode-hook 'display-fill-column-indicator-mode t)
@@ -123,7 +122,6 @@
 (setq
  projectile-project-search-path '("~/projects/personal/" "~/projects/work/")
  projectile-enable-caching t
- org-startup-folded t
  visual-line-mode t
  auto-fill-mode t
  ;; web-mode-markup-indent-offset 2
@@ -135,40 +133,6 @@
  dired-dwim-target t ; http://ergoemacs.org/emacs/emacs_dired_tips.html
  css-indent-offset 2)
 
-(after! org (setq)
-            org-ellipsis " ▼ "
-            org-log-done 'time ; Insert a timestamp after the headline when a task is marked done.
-            org-log-into-drawer t
-            org-treat-insert-todo-heading-as-state-change t
-            ;; org-babel-clojure-backend 'cider
-            ;; org-bullets-bullet-list '("·")
-            org-tags-column -80
-            org-log-done 'time
-            org-refile-targets (quote (("external-links.org" :maxlevel . 1)))
-            ;; org-refile-use-outline-path t
-            ;; org-refile-use-outline-path 'buffer-name
-            ;; org-refile-use-outline-path 'file
-            ;; org-refile-targets (quote ((nil :maxlevel . 1)))
-            ;; org-refile-use-outline-path 'file
-            ;; org-outline-path-complete-in-steps nil
-            org-capture-templates
-            '(
-              ("n" "note" entry
-               (file +org-capture-inbox-file)
-               "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-              ("t" "task" entry
-               (file +org-capture-task-file)
-               "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-              ("w" "work" entry
-               (file +org-capture-work-file)
-               "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-              ("b" "backlog" entry
-               (file +org-capture-backlog-file)
-               "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))
-
-            org-todo-keywords '((sequence "TODO(t)" "TODAY(a)" "NEXT(n)" "|" "DONE(d)" "NONE(x)")
-                                (sequence "WAIT(w@/!)" "HOLD (h@/!)" "|" "CANC(c@/!)" "MISS(m)" "SKIP(s)")))
-
 (after! org
  (defun yosevu/org-archive-done-tasks ()
    "Archive all done tasks."
@@ -176,7 +140,41 @@
    (org-map-entries 'org-archive-subtree "/DONE" 'file))
  (require 'find-lisp)
  (setq
-  org-agenda-files (directory-files +org-path t "\\.org$" t)))
+  org-ellipsis " ▼ "
+  org-log-done 'time ; Insert a timestamp after the headline when a task is marked done.
+  org-log-into-drawer t
+  org-startup-folded t
+  org-treat-insert-todo-heading-as-state-change t
+  ;; org-babel-clojure-backend 'cider
+  ;; org-bullets-bullet-list '("·")
+  org-tags-column -80
+  org-log-done 'time
+  org-refile-targets (quote (("external-links.org" :maxlevel . 1))))
+  ;; org-refile-use-outline-path t
+  ;; org-refile-use-outline-path 'buffer-name
+  ;; org-refile-use-outline-path 'file
+  ;; org-refile-targets (quote ((nil :maxlevel . 1)))
+  ;; org-refile-use-outline-path 'file
+  ;; org-outline-path-complete-in-steps nil
+
+ ;; org-agenda
+ (setq org-agenda-files (directory-files +org-agenda-path t "\\.org$" t))
+ ;;  '(org-agenda-files (list org-directory)))
+ ;; org-todo
+ (setq org-todo-keywords
+        '((sequence "TODO(t)" "TODAY(a)" "NEXT(n)" "|" "DONE(d)" "NONE(x)")
+          (sequence "WAIT(w@/!)" "HOLD (h@/!)" "|" "CANC(c@/!)" "MISS(m)" "SKIP(s)")))
+
+ ;; org-capture
+ (setq
+  org-capture-templates
+  '(("n" "note" entry (file +org-capture-inbox-file)
+     "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+    ("t" "task" entry (file +org-capture-task-file)
+     "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))))
+    ;; ("w" "work" entry)
+    ;; (file +org-capture-work-file)
+    ;; "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1
 
 ;; org-journal
 (use-package! org-journal
@@ -250,10 +248,20 @@
         :target (file+head "${slug}.org"
                            "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+filetags: :drafts:\n\n")
         :unnarrowed t)
-       ("w" "work" plain
+       ("g" "growth" plain
+         "%?"
+        :target (file+head "${slug}.org"
+                           "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+filetags: :weatlh:\n\n")
+        :unnarrowed t)
+       ("s" "software" plain
+         "%?"
+        :target (file+head "${slug}.org"
+                           "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+filetags: :software:\n\n")
+        :unnarrowed t)
+       ("w" "wealth" plain
         "%?"
         :target (file+head "${slug}.org"
-                           "#+title: ${title}\n#+created: %<%Y-%m-%d>\n\n")
+                           "#+title: ${title}\n#+created: %<%Y-%m-%d>\n#+filetags: :wealth:\n\n")
         :unnarrowed t))))
 
 (use-package! websocket
@@ -287,8 +295,13 @@
   ;; `M-x package-install [ret] company`
   (company-mode +1))
 
+;; :lang rust
 (after! lsp-rust
-  (setq lsp-rust-server 'rust-analyzer))
+  (setq lsp-rust-server 'rust-analyzer)
+  (setq lsp-eldoc-render-all t)
+  ;; what to use when checking on-save. "check" is default, I prefer clippy
+  (setq lsp-rust-analyzer-cargo-watch-command "clippy"))
+
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
