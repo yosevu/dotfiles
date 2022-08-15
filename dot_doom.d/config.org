@@ -1,18 +1,65 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+:DOC-CONFIG:
+# Tangle by default to config.el, which is the most common case
+#+property: header-args:emacs-lisp :tangle config.el
+#+property: header-args :mkdirp yes :comments no
+#+startup: fold
+:END:
 
+#+title: Doom Emacs literate configuration
+#+author: Yosevu Kilonzo
+#+email: yosevuk@yosevu.com
+
+This is my [[https://en.wikipedia.org/wiki/Literate_programming][literate]] configuration for [[https://github.com/doomemacs/doomemacs][Doom Emacs]], written in [[https://orgmode.org/][org-mode]]. It is called literate because it uses natural language to explain what the configuration code does and why it does it so that it is easier to understand holistically for people who want to understand it.
+
+* Initialization
+Initialization sets a file-local variable to enable lexical binding for my ~config.el~ file. Lexical binding associates a variable with a value within the scope of e.g. function definitions and ~let~ forms.
+
+#+begin_src emacs-lisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+#+end_src
+
+* General
+General configuration is used for identity including GPG and email, file templates, and snippets.
+
+#+begin_src emacs-lisp
 (setq user-full-name "Yosevu Kilonzo"
       user-mail-address "yosevu@yosevu.com")
+#+end_src
 
+* Fonts
+
+Font configuration specifies font, font size, and font weight.
+
+#+begin_src emacs-lisp
 (setq doom-font (font-spec :family "Fira Code" :size 14)
       doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
       doom-unicode-font (font-spec :family "Fira Sans" :size 14)
       doom-big-font (font-spec :family "Fira Mono" :size 18))
+#+end_src
 
+* Themes
+
+Themes define the themes I use regularly. The themes organized into light, dark and light and dark sections.
+
+- ~doom-solarized-light~: a light theme for software development
+- ~paper~: a light theme for writing in org-mode
+
+- ~almost-mono-gray~: a dark theme for writing in org-mode
+- ~doom-palenight~: a dark theme for software development
+
+#+begin_src emacs-lisp
 ;; (setq doom-theme 'doom-solarized-light)
 (setq doom-theme 'paper)
 
 ;; (setq doom-theme 'almost-mono-gray')
 ;; (setq doom-theme 'doom-palenight)
+#+end_src
+
+* Emacs Lisp (Not literate)
+
+This is my Doom Emacs configuration, written in Emacs Lisp. I am re-writing it as a literate configuration using org-mode.
+
+#+begin_src emacs-lisp
 
 (setq auth-sources '("~/.authinfo"))
 
@@ -310,3 +357,5 @@
 
 ;; Suppress cl warning
 (setq byte-compile-warnings '(cl-functions));;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+#+end_src
