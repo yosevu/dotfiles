@@ -139,6 +139,11 @@
         '((sequence "TODO(t)" "TODAY(a)" "NEXT(n)" "|" "DONE(d)" "NONE(x)")
           (sequence "WAIT(w@/!)" "HOLD (h@/!)" "|" "CANC(c@/!)" "MISS(m)" "SKIP(s)")))
 
+ ;; Mermaid
+ ;; Requires mermaid-cli
+ ;; ~brew install mermaid-cli~
+ (setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
+
  ;; org-capture
  (setq
   org-capture-templates

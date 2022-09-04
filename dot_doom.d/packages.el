@@ -20,6 +20,7 @@
 (package! paper-theme)
 (package! poet-theme)
 (package! dash-at-point)
+(package! ob-mermaid)
 (package! org-roam-ui)
 
 (unpin! org-roam company-org-roam)
