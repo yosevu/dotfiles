@@ -39,19 +39,26 @@ Font configuration specifies font, font size, and font weight.
 
 * Themes
 
-Themes define the themes I use regularly. The themes organized into light, dark and light and dark sections.
+The light and dark themes that I currently use for writing and development.
 
-- ~doom-solarized-light~: a light theme for software development
-- ~paper~: a light theme for writing in org-mode
+** Light
+- ~paper~: writing and development
+- ~solo-jazz~: development
+- ~doom-solarized-light~: development
 
-- ~almost-mono-gray~: a dark theme for writing in org-mode
-- ~doom-palenight~: a dark theme for software development
+** Dark
+- ~almost-mono-gray~: a writing and development
+- ~doom-palenight~: development
 
 #+begin_src emacs-lisp
+;; Light
+;; (setq doom-theme 'paper)
+;; (setq doom-theme 'solo-jazz)
+(setq doom-theme 'doom-flatwhite)
 ;; (setq doom-theme 'doom-solarized-light)
-(setq doom-theme 'paper)
 
-;; (setq doom-theme 'almost-mono-gray')
+;; Dark
+;; (setq doom-theme 'almost-mono-gray)
 ;; (setq doom-theme 'doom-palenight)
 #+end_src
 
@@ -113,6 +120,8 @@ This is my Doom Emacs configuration, written in Emacs Lisp. I am re-writing it a
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(add-hook! 'text-mode-hook #'auto-fill-mode)
+(setq-default fill-column 80)
 
 ;; Vertical rule at 80 characters
 (add-hook! 'web-mode-hook 'display-fill-column-indicator-mode t)
@@ -295,10 +304,10 @@ This is my Doom Emacs configuration, written in Emacs Lisp. I am re-writing it a
 
 (use-package! org-roam-ui
     :after org-roam ;; or :after org
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
+    ;; normally we'd recommend hooking org-ui after org-roam, but since org-roam does not have
+    ;; a hookable mode anymore, you're advised to pick something yourself
+    ;; if you don't care about startup time, use
+    ;; :hook (after-init . org-roam-ui-mode)
     :config
     (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
@@ -340,6 +349,10 @@ This is my Doom Emacs configuration, written in Emacs Lisp. I am re-writing it a
 ;; anki-editor
 (use-package! anki-editor
   :commands (anki-editor-mode))
+
+;; Mark entries older than 1 month as read
+(after! elfeed
+  (setq elfeed-search-filter "@1-months-ago +unread"))
 
 ;; poke-line
 (use-package! poke-line

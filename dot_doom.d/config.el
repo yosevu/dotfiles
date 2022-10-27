@@ -8,10 +8,14 @@
       doom-unicode-font (font-spec :family "Fira Sans" :size 14)
       doom-big-font (font-spec :family "Fira Mono" :size 18))
 
+;; Light
+;; (setq doom-theme 'paper)
+;; (setq doom-theme 'solo-jazz)
+(setq doom-theme 'doom-flatwhite)
 ;; (setq doom-theme 'doom-solarized-light)
-(setq doom-theme 'paper)
 
-;; (setq doom-theme 'almost-mono-gray')
+;; Dark
+;; (setq doom-theme 'almost-mono-gray)
 ;; (setq doom-theme 'doom-palenight)
 
 (setq auth-sources '("~/.authinfo"))
@@ -66,6 +70,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(add-hook! 'text-mode-hook #'auto-fill-mode)
+(setq-default fill-column 80)
 
 ;; Vertical rule at 80 characters
 (add-hook! 'web-mode-hook 'display-fill-column-indicator-mode t)
@@ -248,10 +254,10 @@
 
 (use-package! org-roam-ui
     :after org-roam ;; or :after org
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
+    ;; normally we'd recommend hooking org-ui after org-roam, but since org-roam does not have
+    ;; a hookable mode anymore, you're advised to pick something yourself
+    ;; if you don't care about startup time, use
+    ;; :hook (after-init . org-roam-ui-mode)
     :config
     (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
@@ -293,6 +299,10 @@
 ;; anki-editor
 (use-package! anki-editor
   :commands (anki-editor-mode))
+
+;; Mark entries older than 1 month as read
+(after! elfeed
+  (setq elfeed-search-filter "@1-months-ago +unread"))
 
 ;; poke-line
 (use-package! poke-line

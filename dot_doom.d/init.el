@@ -23,15 +23,15 @@
        company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
-       ;; vertico             ; the search engine of the future
+       ;; ivy               ; a search engine for love and life
+       vertico             ; the search engine of the future
 
        :ui
        ;; deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        ;;doom-dashboard    ; a nifty splash screen for Emacs
        ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       ;;(emoji +unicode)  ; 🙂
+       (emoji +unicode)  ; 🙂
        fill-column       ; a `fill-column' indicator
        ;;hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
@@ -152,7 +152,7 @@
         +dragndrop
         ;;+hugo
         +journal
-        ;;+pomodoro
+        +pomodoro
         +present
         +pretty)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
@@ -184,7 +184,7 @@
        :app
        ;;calendar
        ;;irc               ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
+       (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
