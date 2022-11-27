@@ -148,18 +148,6 @@
  ;; Mermaid
  ;; Requires mermaid-cli
  ;; ~brew install mermaid-cli~
- (setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
-
- ;; org-capture
- (setq
-  org-capture-templates
-  '(("n" "note" entry (file +org-capture-inbox-file)
-     "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-    ("t" "task" entry (file +org-capture-task-file)
-     "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))))
-    ;; ("w" "work" entry)
-    ;; (file +org-capture-work-file)
-    ;; "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1
 
 ;; org-journal
 (use-package! org-journal
