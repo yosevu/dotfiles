@@ -19,6 +19,7 @@
 (package! almost-mono-themes)
 (package! paper-theme)
 (package! poet-theme)
+(package! solo-jazz-theme)
 (package! dash-at-point)
 (package! ob-mermaid)
 (package! org-roam-ui)

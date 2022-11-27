@@ -179,7 +179,7 @@ This is my Doom Emacs configuration, written in Emacs Lisp. I am re-writing it a
   ;; org-bullets-bullet-list '("·")
   org-tags-column -80
   org-log-done 'time
-  org-refile-targets (quote (("external-links.org" :maxlevel . 1))))
+  org-refile-targets (quote (("external-links.org" :maxlevel . 1)))
   ;; org-refile-use-outline-path t
   ;; org-refile-use-outline-path 'buffer-name
   ;; org-refile-use-outline-path 'file
@@ -201,12 +201,12 @@ This is my Doom Emacs configuration, written in Emacs Lisp. I am re-writing it a
  (setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
 
  ;; org-capture
- (setq
-  org-capture-templates
-  '(("n" "note" entry (file +org-capture-inbox-file)
-     "* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
-    ("t" "task" entry (file +org-capture-task-file)
-     "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))))
+ ;;(setq
+  ;;org-capture-templates
+  ;;'(("n" "note" entry (file +org-capture-inbox-file)
+     ;;"* %? %^g" :prepend t :kill-buffer t :empty-lines-before 1)
+    ;;("t" "task" entry (file +org-capture-task-file)
+    ;; "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1))))
     ;; ("w" "work" entry)
     ;; (file +org-capture-work-file)
     ;; "* TODO %? %^g" :prepend t :kill-buffer t :empty-lines-before 1
