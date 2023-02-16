@@ -23,6 +23,10 @@
 (package! dash-at-point)
 (package! ob-mermaid)
 (package! org-roam-ui)
+;; (package! org-modern)
+
+(unpin! straight)
+(package! straight :pin "3eca39d")
 
 (unpin! org-roam company-org-roam)
 

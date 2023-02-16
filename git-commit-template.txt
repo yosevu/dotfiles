@@ -1,50 +1,29 @@
 
+# Type
+
 # fix
-# feat
-# build
-# chore
-# ci
-# docs
-# style
 # refactor
-# perf
+# style
+# chore
 # test
+# feat
+# docs
+# build
+# perf
+# ci
 # wip: work in progress, an incremental update, but not a complete feature
-#
-# Examples
-#
-# Commit message with description and breaking change footer
-#
-# feat: allow provided config object to extend other configs
-#
-# BREAKING CHANGE: `extends` key in config file is now used for extending other config files
-#
-# Commit message with ! to draw attention to breaking change
-#
-# feat!: send an email to the customer when a product is shipped
-#
-# Commit message with scope and ! to draw attention to breaking change
-#
-# feat(api)!: send an email to the customer when a product is shipped
-#
-# Commit message with both ! and BREAKING CHANGE footer
-#
-# chore!: drop support for Node 6
-#
-# BREAKING CHANGE: use JavaScript features not available in Node 6.
-#
-# Commit message with no body
-#
-# feat(lang): add polish language
-#
-# Commit message with multi-paragraph body and multiple footers
-# fix: prevent racing of requests
-#
-# Introduce a request id and a reference to latest request. Dismiss
-# incoming responses other than from latest request.
-#
-# Remove timeouts which were used to mitigate the racing issue but are
-# obsolete now.
-#
-# Reviewed-by: Z
-# Refs: #123
+
+# Context
+
+# What the change is.
+# Why the change is necessary.
+# Where the change is made.
+
+# Jira references
+# Use the issue key in commit message e.g. "JRA-123"
+
+# GitHub Issue link keywords
+# close, closes, closed
+# fix, fixes, fixed
+# resolve, resolves, resolved
+

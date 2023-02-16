@@ -80,6 +80,7 @@ This is my Doom Emacs configuration, written in Emacs Lisp. I am re-writing it a
  +org-path "~/Dropbox/notes/org/"
  +org-agenda-path "~/Dropbox/notes/org/tasks/"
  +org-roam-path "~/Dropbox/notes/org/notes/"
+ ;; +org-roam-path "~/Documents/logseq-main/pages"
  +org-journal-path "~/Dropbox/notes/org/journal/"
  +org-roam-db-file "~/Dropbox/notes/org/org-roam.db"
 
@@ -187,7 +188,11 @@ This is my Doom Emacs configuration, written in Emacs Lisp. I am re-writing it a
   ;; org-refile-use-outline-path 'file
   ;; org-outline-path-complete-in-steps nil
 
- ;; org-agenda
+  ;; (setq org-modern-label-border nil)
+  ;; (setq org-modern-label-border 0.3)
+  (global-org-modern-mode))
+
+  ;; org-agenda
  (setq org-agenda-files (directory-files +org-agenda-path t "\\.org$" t))
  ;;  '(org-agenda-files (list org-directory)))
  ;; org-todo

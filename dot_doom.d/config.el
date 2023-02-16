@@ -137,7 +137,11 @@
   ;; org-refile-use-outline-path 'file
   ;; org-outline-path-complete-in-steps nil
 
- ;; org-agenda
+  ;; (setq org-modern-label-border nil)
+  ;; (setq org-modern-label-border 0.3)
+  ;; (global-org-modern-mode))
+
+  ;; org-agenda
  (setq org-agenda-files (directory-files +org-agenda-path t "\\.org$" t))
  ;;  '(org-agenda-files (list org-directory)))
  ;; org-todo
@@ -148,6 +152,7 @@
  ;; Mermaid
  ;; Requires mermaid-cli
  ;; ~brew install mermaid-cli~
+ (setq ob-mermaid-cli-path "/usr/local/bin/mmdc"))
 
 ;; org-journal
 (use-package! org-journal
